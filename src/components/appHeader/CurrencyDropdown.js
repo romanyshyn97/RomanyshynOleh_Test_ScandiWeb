@@ -1,13 +1,20 @@
 
+import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
-import { Component } from "react";
 import styled from 'styled-components';
 import up from '../../resources/arrowUp.svg';
 import down from '../../resources/arrowDown.svg';
 
 import './currencyDropdown.scss'
 
-
+const GET_CURRENCIES = gql`query currencies {
+  currencies{
+  label,
+ symbol
+}
+}`
 
 const DropDownContainer = styled("div")`
   
@@ -36,6 +43,7 @@ const DropDownList = styled("ul")`
   padding: 0;
   margin: 0;
   position:absolute;
+  z-index: 5;
   background: #ffffff;
   filter: drop-shadow(0 0 0.75rem #EEEEEE);
   
@@ -91,28 +99,39 @@ onOptionClicked = value => () => {
 
     render(){
       const {isOpen, selectedOption, image} = this.state;
-      
+     
       
       return (
-        
-        <DropDownContainer>
-          <DropDownHeader onClick={this.toggling}>
-            {selectedOption || "$"}
-            <img src={image} alt="" />
+        <Query query={GET_CURRENCIES}>
+          {({data,loading,error}) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error...</p>
 
-          </DropDownHeader>
-          {isOpen && (
-            <DropDownListContainer>
-              <DropDownList>
-                {options.map(option => (
-                  <ListItem onClick={this.onOptionClicked(option)} key={Math.random()}>
-                    {option}
-                  </ListItem>
-                ))}
-              </DropDownList>
-            </DropDownListContainer>
-          )}
-        </DropDownContainer>
+            return (
+              <DropDownContainer>
+              <DropDownHeader onClick={this.toggling}>
+                {selectedOption || data.currencies[0].symbol}
+                <img src={image} alt="" />
+    
+              </DropDownHeader>
+              {isOpen && (
+                <DropDownListContainer>
+                  <DropDownList>
+                    {data.currencies.map(option => (
+                      <ListItem onClick={this.onOptionClicked(option.symbol)} key={Math.random()}>
+                        {option.symbol}
+                        {' '}
+                        {option.label}
+                      </ListItem>
+                    ))}
+                  </DropDownList>
+                </DropDownListContainer>
+              )}
+            </DropDownContainer>
+            )
+          }}
+        </Query>
+        
      
           
         
@@ -124,3 +143,5 @@ onOptionClicked = value => () => {
 }
 
 export default Dropdown;
+
+

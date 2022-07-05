@@ -1,9 +1,10 @@
-import { Component } from "react";
+import { PureComponent } from "react";
+
 import Dropdown from "./CurrencyDropdown";
-import basket from '../../resources/basket.svg';
+import cart from '../../resources/cart.svg';
 import logo from '../../resources/logo.svg';
 import './appHeader.scss'
-class AppHeader extends Component{
+class AppHeader extends PureComponent{
     constructor(props){
         super(props)
         this.state = {
@@ -59,7 +60,7 @@ class AppHeader extends Component{
                 <div className="app__header__right">
                     <Dropdown />
               
-                    <img src={basket} alt="" />
+                    <img src={cart} alt="" />
                 </div>
             </header>
         )

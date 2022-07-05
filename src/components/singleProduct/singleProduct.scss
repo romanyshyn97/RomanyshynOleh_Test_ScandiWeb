@@ -1,0 +1,30 @@
+.single-item{
+    position: relative;
+    width: 386px;
+    height: 444px;
+    padding: 15px;
+    img{
+        width: 354px;
+        height: 330px;
+
+    }
+    &_cart{
+        background-color: #5ECE7B;
+        position: absolute;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        right: 40px;
+        bottom: 105px;
+        cursor: pointer;
+        img{
+            position: absolute;
+            left: 12px;
+            top: 15px;
+            width: 24px;
+            height: 24px;
+            color: wheat;
+            
+        }
+    }
+}
