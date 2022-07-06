@@ -2,10 +2,10 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import up from '../../resources/arrowUp.svg';
-import down from '../../resources/arrowDown.svg';
+import up from '../../../resources/arrowUp.svg';
+import down from '../../../resources/arrowDown.svg';
 
 import './currencyDropdown.scss'
 
@@ -64,7 +64,7 @@ const ListItem = styled("li")`
   }
 `;
 
-const options = ["$ USD", "€ EUR", "¥ JPY"];
+
 
 
 class Dropdown extends Component {
@@ -73,16 +73,18 @@ class Dropdown extends Component {
     this.state = {
       isOpen: false,
       selectedOption: null,
-      image: down
+      image: true
     }
   }
- 
+componentDidMount(){
+  this.onOptionClicked()
+} 
 
 toggling = () => {
   
   this.setState({
-    isOpen: true,
-    image: up
+    isOpen: !this.state.isOpen,
+    image: !this.state.image
 });
 }
 
@@ -90,7 +92,7 @@ onOptionClicked = value => () => {
     
     this.setState({
       isOpen: false,
-      image: down,
+      image: false,
       selectedOption: value.slice(0,2)
     })
     console.log(this.state.selectedOption);
@@ -99,26 +101,29 @@ onOptionClicked = value => () => {
 
     render(){
       const {isOpen, selectedOption, image} = this.state;
-     
+      const imgPos = image ? down : up;
       
       return (
         <Query query={GET_CURRENCIES}>
           {({data,loading,error}) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error...</p>
+            if(loading) return <p>loading...</p>
+            if(error) return <p>error...</p>
+            
 
             return (
               <DropDownContainer>
               <DropDownHeader onClick={this.toggling}>
                 {selectedOption || data.currencies[0].symbol}
-                <img src={image} alt="" />
+                <img src={imgPos} alt="" />
     
               </DropDownHeader>
               {isOpen && (
                 <DropDownListContainer>
                   <DropDownList>
                     {data.currencies.map(option => (
-                      <ListItem onClick={this.onOptionClicked(option.symbol)} key={Math.random()}>
+                      <ListItem 
+                            onClick={this.onOptionClicked(option.symbol)} 
+                            key={uuidv4()}>
                         {option.symbol}
                         {' '}
                         {option.label}
