@@ -3,13 +3,14 @@ import React from "react";
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { ApolloProvider } from "react-apollo";
+import { InMemoryCache } from "@apollo/client";
 import AppHeader from '../appHeader/AppHeader';
 import ProductList from "../productsList/ProductList";
 import './app.css'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
-  
+  cache: new InMemoryCache()
 })
 
 client

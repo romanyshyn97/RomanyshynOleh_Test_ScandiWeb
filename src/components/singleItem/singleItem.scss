@@ -1,0 +1,49 @@
+.single-item{
+    position: relative;
+    width: 386px;
+    height: 444px;
+    padding: 15px;
+    transition: all 0.3s;
+    &_image{
+        width: 354px;
+        height: 330px;
+        overflow: hidden;
+    }
+        img{
+            max-width: 354px;
+            max-height: 330px;
+            object-fit: cover;
+            
+        }
+    &:hover{
+        box-shadow: 0px 0px 35px #EEEEEE;
+        cursor: pointer;
+        transition: all 0.3s;
+        
+    }
+
+    
+    &_cart{
+        
+        background-color: #5ECE7B;
+        position: absolute;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        right: 40px;
+        bottom: 105px;
+        cursor: pointer;
+        &:hover{
+            transform: scale(1.1);
+        }
+        img{
+            position: absolute;
+            left: 12px;
+            top: 15px;
+            width: 24px;
+            height: 24px;
+            color: wheat;
+            
+        }
+    }
+}

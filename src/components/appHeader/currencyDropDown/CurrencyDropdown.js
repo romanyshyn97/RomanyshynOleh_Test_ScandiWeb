@@ -1,20 +1,15 @@
 
 import React, { Component } from "react";
-import gql from "graphql-tag";
+
 import { Query } from "react-apollo";
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import up from '../../../resources/arrowUp.svg';
 import down from '../../../resources/arrowDown.svg';
-
+import { GET_CURRENCIES } from "../../../service/Queries";
 import './currencyDropdown.scss'
 
-const GET_CURRENCIES = gql`query currencies {
-  currencies{
-  label,
- symbol
-}
-}`
+
 
 const DropDownContainer = styled("div")`
   

@@ -11,3 +11,6 @@
 // }
 
 // export default Service;
+
+import gql from "graphql-tag";
+
