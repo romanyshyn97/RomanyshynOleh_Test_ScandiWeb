@@ -1,6 +1,4 @@
-import gql from "graphql-tag";
-
-export const GET_CURRENCIES = gql`
+export const GET_CURRENCIES = `
 query currencies {
     currencies{
       label,
@@ -8,7 +6,7 @@ query currencies {
     }
   }`
 
-export const GET_CATEGORY = gql` query category {
+export const GET_CATEGORY = ` query category {
     category(input:{title:"all"}){
          name,
       products{

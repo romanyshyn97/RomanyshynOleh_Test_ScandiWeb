@@ -3,47 +3,53 @@ import SingleItem from "../singleItem/SingleItem";
 import { v4 as uuidv4 } from 'uuid';
 import './productList.scss'
 // import gql from "graphql-tag";
-import { Query } from "react-apollo";
 import './productList.scss';
-import { GET_CATEGORY } from "../../service/Queries";
 
-// const GET_CATEGORY = gql` query category {
-//     category(input:{title:"all"}){
-//          name,
-//       products{
-//         id,
-//         name,
-//         description,
-//         gallery
-//       }
-//     }
-//     }`
-
+import Service from "../../service/Service";
 
 class ProductList extends PureComponent{
-    render(){
+    constructor(props){
+        super(props);
+        this.state = {
+            list: [],
+            name: ''
+        }
+    }
 
+    Service = new Service();
+
+    componentDidMount(){
+        this.onRequest()
+      } 
+
+    onRequest = () => {
+        this.Service.categoryRequest()
+            .then(this.onLoaded)
+            // .then(res => console.log(res.data.category))
+          
+      }
+    
+    onLoaded = (res) => {
+    this.setState({
+        list: res.data.category.products,
+        name: res.data.category.name
+    })
+    }
+    
+    render(){
+        const {list, name} = this.state;
+        
         return(
             <main>
-                <Query query={GET_CATEGORY}>
-                    {({ data, loading, error }) => {
-                        if(loading) return <p>loading..</p>;
-                        if(error) return <p>error</p>
-                    return (
-                        <>
-                            <h1>{data.category.name.toUpperCase()}</h1>
-                            <div className="grid">
-                                {data.category.products.map(({name, gallery, id}) => (
-                                    <SingleItem 
-                                        name={name}
-                                        gallery={gallery}
-                                        id={id} key={uuidv4()}/>
-                                ))}
-                            </div>
-                        </>       
-                    );
-                    }}
-                </Query>
+                <h1>{name.toUpperCase()}</h1>
+                <div className="grid">
+                    {list.map(({name, gallery, id}) => (
+                        <SingleItem 
+                            name={name}
+                            gallery={gallery}
+                            id={id} key={uuidv4()}/>
+                    ))}
+                </div>   
             </main>
             
         )

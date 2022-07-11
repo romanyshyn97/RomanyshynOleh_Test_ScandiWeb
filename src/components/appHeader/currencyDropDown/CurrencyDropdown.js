@@ -1,13 +1,12 @@
-
 import React, { Component } from "react";
 
-import { Query } from "react-apollo";
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import up from '../../../resources/arrowUp.svg';
 import down from '../../../resources/arrowDown.svg';
-import { GET_CURRENCIES } from "../../../service/Queries";
 import './currencyDropdown.scss'
+
+import Service from "../../../service/Service";
 
 
 
@@ -68,12 +67,33 @@ class Dropdown extends Component {
     this.state = {
       isOpen: false,
       selectedOption: null,
-      image: true
+      image: true,
+      currency: []
     }
   }
+  
 componentDidMount(){
   this.onOptionClicked()
+  this.onRequest()
 } 
+Service = new Service();
+
+onRequest = () => {
+  this.Service.currenciesRequest()
+      // .then((res) => console.log(res.data.currencies))
+    .then(this.onLoaded)
+    
+  
+      
+      
+}
+onLoaded = (res) => {
+  this.setState({
+    currency: res.data.currencies
+  })
+}
+
+
 
 toggling = () => {
   
@@ -95,27 +115,21 @@ onOptionClicked = value => () => {
 
 
     render(){
-      const {isOpen, selectedOption, image} = this.state;
+      const {isOpen, selectedOption, image, currency} = this.state;
       const imgPos = image ? down : up;
       
       return (
-        <Query query={GET_CURRENCIES}>
-          {({data,loading,error}) => {
-            if(loading) return <p>loading...</p>
-            if(error) return <p>error...</p>
-            
-
-            return (
-              <DropDownContainer>
+        <>
+        <DropDownContainer>
               <DropDownHeader onClick={this.toggling}>
-                {selectedOption || data.currencies[0].symbol}
+                {selectedOption || '$'}
                 <img src={imgPos} alt="" />
     
               </DropDownHeader>
               {isOpen && (
                 <DropDownListContainer>
                   <DropDownList>
-                    {data.currencies.map(option => (
+                    {currency.map(option => (
                       <ListItem 
                             onClick={this.onOptionClicked(option.symbol)} 
                             key={uuidv4()}>
@@ -128,18 +142,12 @@ onOptionClicked = value => () => {
                 </DropDownListContainer>
               )}
             </DropDownContainer>
+            </>
+              
             )
-          }}
-        </Query>
+          }
+       
         
-     
-          
-        
-      );
-
-    }
-
- 
 }
 
 export default Dropdown;
