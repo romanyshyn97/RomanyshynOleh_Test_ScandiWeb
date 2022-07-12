@@ -9,7 +9,7 @@ class SingleItem extends PureComponent{
 
 
     render(){
-        const {id, name, gallery} = this.props;
+        const {id, name, gallery, prices} = this.props;
         return(
             <div className="single-item" key={id}>
                 <div className="single-item_image">
@@ -23,7 +23,9 @@ class SingleItem extends PureComponent{
                         {name}
                     </h5>
                     <p>
-                        $50.00
+                    {prices.map(item => <div>{item.currency.symbol} {item.amount}</div>)}
+                        
+                        
                     </p>
                 </div>
             </div>

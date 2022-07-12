@@ -117,7 +117,7 @@ onOptionClicked = value => () => {
     render(){
       const {isOpen, selectedOption, image, currency} = this.state;
       const imgPos = image ? down : up;
-      
+     
       return (
         <>
         <DropDownContainer>

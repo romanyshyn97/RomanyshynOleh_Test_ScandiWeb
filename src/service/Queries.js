@@ -13,7 +13,11 @@ export const GET_CATEGORY = ` query category {
         id,
         name,
         description,
-        gallery
+        gallery,
+        prices{
+          currency{symbol},
+          amount
+        }
       }
     }
     }` 
