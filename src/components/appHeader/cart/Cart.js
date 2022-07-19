@@ -1,46 +1,29 @@
 import { PureComponent } from "react";
 import product from '../../../resources/product.png'
 import './cart.scss'
+import CartItem from "./cartItem/CartItem";
+import {connect} from 'react-redux';
 
 class Cart extends PureComponent{
 
     render(){
-
+        const {cart} = this.props;
         return(
             <div className="cart-overlay">
-                <div className="cart">
-                    <h3>My bag, <span>1 items</span></h3>
-                    <div className="grid">
-                    <div className="left">
-                        <h4>Apollo running short</h4>
-                        <h3>$50.00</h3>
-                        <p>Size:</p>
-                        <div className="sizes">
-                            <button>XS</button>
-                            <button>S</button>
-                            <button>M</button>
-                            <button>L</button>    
-                        </div>
-                        <p>Color:</p> 
-                        <div>
-                            <button></button>
-                        </div>
-                    </div>
-                    <div className="center">
-                        <button>+</button>  
-                        <span>1</span>
-                        <button>-</button>
-                    </div>
-                    <div className="right">
-                        <img src={product} alt="" />
-                    </div>
-                    </div>
-                    
-                </div>
+                {cart.map(item => (
+                    <CartItem key={item.id} itemData={item} countCart={this.props.countCart}/>
+                ))}
+                
             </div>
 
         )
     }
 }
 
-export default Cart;
+const mapStateToProps = state =>{
+    return{
+        cart: state.shop.cart
+    }
+}
+
+export default connect(mapStateToProps)(Cart) ;

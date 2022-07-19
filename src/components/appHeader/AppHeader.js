@@ -5,15 +5,43 @@ import Cart from "./cart/Cart";
 import cart from '../../resources/cart.svg';
 import logo from '../../resources/logo.svg';
 import './appHeader.scss'
+
+import {connect} from 'react-redux';
+
+
 class AppHeader extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
-            opened: false
+            opened: false,
+            cartCount: 0
         }
-
         
+
    }
+
+//    componentDidMount(){
+//         let count = 0;
+//         const {cart} = this.props;
+//         cart.forEach(item => {
+//             count += item.qty;
+//         })
+//         this.setState({
+//             cartCount:count
+//         })
+        
+//    }
+   componentDidUpdate(){
+    let count = 0;
+        const {cart} = this.props;
+        cart.forEach(item => {
+            count += item.qty;
+        })
+        this.setState({
+            cartCount:count
+        })
+   }
+
    onToggle = () => {
     this.setState({
         opened:!this.state.opened
@@ -37,9 +65,10 @@ class AppHeader extends PureComponent{
                     <Dropdown />
                     <div onClick={this.onToggle}>
                         <img src={cart} alt="" />
+                        {this.state.cartCount}
                     </div>
                     
-                    <div className={clazz}><Cart/></div>
+                    <div className={clazz}><Cart countCart={this.state.cartCount}/></div>
                     
                 </div>
             </header>
@@ -47,4 +76,10 @@ class AppHeader extends PureComponent{
     }
 }
 
-export default AppHeader;
+const mapStateToProps = state => {
+    return {
+        cart: state.shop.cart
+    }
+}
+
+export default connect(mapStateToProps)(AppHeader) ;

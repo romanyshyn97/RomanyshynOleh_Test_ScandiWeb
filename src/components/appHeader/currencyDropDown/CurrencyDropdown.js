@@ -21,7 +21,7 @@ const DropDownHeader = styled("div")`
   align-items:center;
   margin-bottom: 0.8em;
   cursor:pointer;
-  
+  width: 100px;
   font-weight: 550;
   font-size: 1.3rem;
   color: black;
