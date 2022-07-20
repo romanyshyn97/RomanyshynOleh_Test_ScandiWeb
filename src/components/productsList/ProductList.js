@@ -77,19 +77,32 @@ import {connect} from 'react-redux';
 
 
 import Service from "../../service/Service";
+import { fetchProducts } from "../../redux/Shopping/shopping-actions";
 
 class ProductList extends PureComponent{
+   
     
+    componentDidMount(){
+        this.props.onFetchData()
+        // .then(res => console.log(res))
+            
+    }
+
+  
 
     render(){
-        const {products} = this.props;
+        
+        const {items, loading, error} = this.props;
+        console.log(items)
         return(
             <main>
-                <h1>ALL</h1>
+                <h1>{items.category.name}</h1>
                 <div className="grid">
-                    {products.map(item => (
+                {error && <p>{error}</p>}
+                {items && items.category.products.map(item => (
                         <SingleItem key={item.id} productData={item} />
                     ))}
+                    
                     
                 </div>   
             </main>
@@ -98,11 +111,16 @@ class ProductList extends PureComponent{
     }
 }
 
-const mapStateToProps = state => {
-    return{
-        products: state.shop.products,
+const mapStateToProps = state => ({
+    items: state.shop.items,
+    loading: state.shop.loading,
+    error: state.shop.error
+  });
 
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onFetchData: () => dispatch(fetchProducts())
     }
 }
 
-export default connect(mapStateToProps)(ProductList);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

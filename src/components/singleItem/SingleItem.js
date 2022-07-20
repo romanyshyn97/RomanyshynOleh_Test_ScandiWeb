@@ -12,12 +12,12 @@ class SingleItem extends PureComponent{
 
 
     render(){
-        const {id,name, description, price} = this.props.productData;
+        const {id,name, gallery, price} = this.props.productData;
         
         return(
             <div className="single-item" key={id}>
                 <div className="single-item_image">
-                    <img src={image} alt={name} />
+                    <img src={gallery} alt={name} />
                 </div>
                 <div 
                     onClick={()=> this.props.addToCart(id)}

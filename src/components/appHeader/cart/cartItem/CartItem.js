@@ -5,7 +5,7 @@ class CartItem extends PureComponent{
 
 
     render(){
-        const {name, price, qty}  = this.props.itemData;
+        const {name, price, qty, gallery}  = this.props.itemData;
         return(
             <div className="cart">
                     <h3>My bag, <span>{this.props.countCart} items</span></h3>
@@ -31,7 +31,7 @@ class CartItem extends PureComponent{
                         <button>-</button>
                     </div>
                     <div className="right">
-                        <img src={product} alt="" />
+                        <img src={gallery} alt="" />
                     </div>
                     </div>
                     

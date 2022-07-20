@@ -1,34 +1,38 @@
 import * as actionTypes from './shopping-types';
 
 const INITIAL_STATE = {
-    products: [
-    {
-        "id": "huarache-x-stussy-le",
-        "name": "Nike Air Huarache Le",
-        "description": "<p>Great sneakers for everyday use!</p>",
-        "price": "50$"
-    },
-    {
-        "id": "ps-5",
-          "name": "PlayStation 5",
-          "description": "<p>A good gaming console. Plays games of PS4! Enjoy if you can buy it mwahahahaha</p>",
-          "price": "450$"
-    },
-    {
-        "id": "apple-imac-2021",
-        "name": "iMac 2021",
-        "description": "The new iMac!",
-        "price": "770$"
-    }
-    ],
+    items: [],
+    loading: false,
+    error: null,
     cart: [],
     currentItem: null
 }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
+        case actionTypes.FETCH_PRODUCTS_BEGIN:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
+
+        case actionTypes.FETCH_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                items: action.payload.products
+            };
+
+        case actionTypes.FETCH_PRODUCTS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.error,
+                items: []
+            };
         case actionTypes.ADD_TO_CART:
-            const item = state.products.find(prod => prod.id === action.payload.id);
+            const item = state.items.category.products.find(prod => prod.id === action.payload.id);
             const inCart = state.cart.find(item => item.id === action.payload.id ? true: false);
             return {
                 ...state,
