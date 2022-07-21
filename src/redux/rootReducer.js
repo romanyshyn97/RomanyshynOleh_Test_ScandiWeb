@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import shopReducer from './Shopping/shopping-reducer'
+import shopReducer from './Shopping/reducer'
 
 const rootReducer = combineReducers({
     shop: shopReducer,

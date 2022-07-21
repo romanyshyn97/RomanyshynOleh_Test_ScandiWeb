@@ -77,7 +77,7 @@ import {connect} from 'react-redux';
 
 
 import Service from "../../service/Service";
-import { fetchProducts } from "../../redux/Shopping/shopping-actions";
+import { fetchProducts } from "../../redux/Shopping/actions";
 
 class ProductList extends PureComponent{
    
@@ -87,13 +87,12 @@ class ProductList extends PureComponent{
         // .then(res => console.log(res))
             
     }
-
-  
+   
 
     render(){
         
         const {items, loading, error} = this.props;
-        console.log(items)
+        // console.log(items)
         return(
             <main>
                 <h1>{items.category.name}</h1>

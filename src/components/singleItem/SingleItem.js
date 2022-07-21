@@ -5,19 +5,19 @@ import cart from '../../resources/cart-white.svg';
 import image from '../../resources/product.png'
 
 import {connect} from 'react-redux'
-import { addToCart } from "../../redux/Shopping/shopping-actions";
+import { addToCart } from "../../redux/Shopping/actions";
 
 class SingleItem extends PureComponent{
    
 
 
     render(){
-        const {id,name, gallery, price} = this.props.productData;
+        const {id,name, gallery, prices} = this.props.productData;
         
         return(
             <div className="single-item" key={id}>
                 <div className="single-item_image">
-                    <img src={gallery} alt={name} />
+                    <img src={gallery[0]} alt={name} />
                 </div>
                 <div 
                     onClick={()=> this.props.addToCart(id)}
@@ -28,8 +28,13 @@ class SingleItem extends PureComponent{
                     <h5>
                         {name}
                     </h5>
-                    <div>{price}</div>
-                    {/* {prices.map(item => <div>{item.currency.symbol} {item.amount}</div>)} */}
+                    <div>
+                        {/* {prices.map(item => <div>{item.currency.filter(item=> item.symbol)} {item.amount}</div>)} */}
+                        $
+                        {prices.filter(item => item.currency.symbol === '$').map(filtered => (filtered.amount))}
+
+                    </div>
+                    
                         
                         
                     

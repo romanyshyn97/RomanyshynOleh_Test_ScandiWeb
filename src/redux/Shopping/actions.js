@@ -1,4 +1,4 @@
-import * as actionTypes from './shopping-types';
+import * as actionTypes from './types';
 import Service from '../../service/Service';
 
 
