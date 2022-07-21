@@ -8,6 +8,8 @@ import './currencyDropdown.scss'
 
 import Service from "../../../service/Service";
 
+import { fetchCurrencies, changeCurrency } from "../../../redux/Shopping/actions";
+import { connect } from "react-redux";
 
 
 const DropDownContainer = styled("div")`
@@ -67,71 +69,52 @@ class Dropdown extends Component {
     this.state = {
       isOpen: false,
       selectedOption: null,
-      image: true,
-      currency: []
+      image: false,
+     
     }
   }
   
 componentDidMount(){
-  this.onOptionClicked()
-  this.onRequest()
+  this.props.onFetchData()
+  // .then(res=>console.log(res))
 } 
-Service = new Service();
-
-onRequest = () => {
-  this.Service.currenciesRequest()
-      // .then((res) => console.log(res.data.currencies))
-    .then(this.onLoaded)
-    
-  
-      
-      
-}
-onLoaded = (res) => {
-  this.setState({
-    currency: res.data.currencies
-  })
-}
-
-
 
 toggling = () => {
-  
   this.setState({
     isOpen: !this.state.isOpen,
     image: !this.state.image
 });
 }
 
-onOptionClicked = value => () => {
-    
+onOptionClicked = () => {
     this.setState({
       isOpen: false,
       image: false,
-      selectedOption: value.slice(0,2)
+      
     })
-    console.log(this.state.selectedOption);
+    
     };
 
 
     render(){
-      const {isOpen, selectedOption, image, currency} = this.state;
-      const imgPos = image ? down : up;
+      const {isOpen, selectedOption, image} = this.state;
+      const {currencies} = this.props.currencies;
+      const imgPos = image ? up : down;
      
       return (
         <>
         <DropDownContainer>
               <DropDownHeader onClick={this.toggling}>
-                {selectedOption || '$'}
+                {this.props.selectedCurr}
                 <img src={imgPos} alt="" />
     
               </DropDownHeader>
               {isOpen && (
                 <DropDownListContainer>
                   <DropDownList>
-                    {currency.map(option => (
+                    {currencies.map(option => (
                       <ListItem 
-                            onClick={this.onOptionClicked(option.symbol)} 
+                            onClick={()=> {this.props.onSelected(option.symbol); this.onOptionClicked()}} 
                             key={uuidv4()}>
                         {option.symbol}
                         {' '}
@@ -150,6 +133,20 @@ onOptionClicked = value => () => {
         
 }
 
-export default Dropdown;
+const mapStateToProps = state => ({
+  currencies: state.shop.currencies,
+  selectedCurr: state.shop.selectedCurr,
+  loading: state.shop.loading,
+  error: state.shop.error
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+      onFetchData: () => dispatch(fetchCurrencies()),
+      onSelected: (curr) => dispatch(changeCurrency(curr))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Dropdown);
 
 

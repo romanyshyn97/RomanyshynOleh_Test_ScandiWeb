@@ -39,6 +39,13 @@ export const loadCurrentItem = (item) => {
     }
 }
 
+export const changeCurrency = (currency) => {
+  return{
+    type: actionTypes.CHANGE_CURRENCY,
+    payload: currency
+  }
+}
+
 // export const fetchData = () => {
 //     return async (dispatch) => {
 //         return await dataService.categoryRequest()
@@ -60,6 +67,11 @@ export const fetchProductsBegin = () => ({
     type: actionTypes.FETCH_PRODUCTS_SUCCESS,
     payload: { products }
   });
+
+  export const fetchCurrenciesSuccess = currencies => ({
+    type: actionTypes.FETCH_CURRENCIES,
+    payload: { currencies }
+  })
   
   export const fetchProductsFailure = error => ({
     type: actionTypes.FETCH_PRODUCTS_FAILURE,
@@ -97,6 +109,35 @@ export const fetchProductsBegin = () => ({
         .then(res => res.json())
         .then(json => {
           dispatch(fetchProductsSuccess(json.data));
+          return json.data;
+        })
+        .catch(error => dispatch(fetchProductsFailure(error)));
+    };
+  }
+
+  export function fetchCurrencies() {
+    return dispatch => {
+      dispatch(fetchProductsBegin());
+      return fetch('http://localhost:4000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+          query currencies {
+              currencies{
+                label,
+                symbol
+              }
+            }`,
+        }),
+        variables: {}
+      })
+        .then(handleErrors)
+        .then(res => res.json())
+        .then(json => {
+          dispatch(fetchCurrenciesSuccess(json.data));
           return json.data;
         })
         .catch(error => dispatch(fetchProductsFailure(error)));

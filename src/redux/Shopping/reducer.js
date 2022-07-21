@@ -2,10 +2,12 @@ import * as actionTypes from './types';
 
 const INITIAL_STATE = {
     items: [],
+    currencies:[],
     loading: false,
     error: null,
     cart: [],
-    currentItem: null
+    currentItem: null,
+    selectedCurr: '$'
 }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
@@ -23,7 +25,14 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 loading: false,
                 items: action.payload.products
             };
-
+        
+        case actionTypes.FETCH_CURRENCIES:
+            return {
+                ...state,
+                loading: false,
+                currencies: action.payload.currencies
+            };
+        
         case actionTypes.FETCH_PRODUCTS_FAILURE:
             return {
                 ...state,
@@ -31,6 +40,11 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 error: action.payload.error,
                 items: []
             };
+        case actionTypes.CHANGE_CURRENCY:
+            return{
+                ...state,
+                selectedCurr: action.payload
+            }
         case actionTypes.ADD_TO_CART:
             const item = state.items.category.products.find(prod => prod.id === action.payload.id);
             const inCart = state.cart.find(item => item.id === action.payload.id ? true: false);

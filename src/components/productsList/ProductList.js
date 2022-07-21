@@ -92,13 +92,14 @@ class ProductList extends PureComponent{
     render(){
         
         const {items, loading, error} = this.props;
+        const {products} = items.category; 
         // console.log(items)
         return(
             <main>
-                <h1>{items.category.name}</h1>
+                {/* <h1>{items.category.name}</h1> */}
                 <div className="grid">
-                {error && <p>{error}</p>}
-                {items && items.category.products.map(item => (
+                
+                {products.map(item => (
                         <SingleItem key={item.id} productData={item} />
                     ))}
                     
@@ -112,6 +113,7 @@ class ProductList extends PureComponent{
 
 const mapStateToProps = state => ({
     items: state.shop.items,
+    selectedCurr: state.shop.selectedCurr,
     loading: state.shop.loading,
     error: state.shop.error
   });

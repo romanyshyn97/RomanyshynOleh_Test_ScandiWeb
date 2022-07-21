@@ -30,8 +30,8 @@ class SingleItem extends PureComponent{
                     </h5>
                     <div>
                         {/* {prices.map(item => <div>{item.currency.filter(item=> item.symbol)} {item.amount}</div>)} */}
-                        $
-                        {prices.filter(item => item.currency.symbol === '$').map(filtered => (filtered.amount))}
+                        {this.props.selectedCurr}
+                        {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
 
                     </div>
                     
@@ -44,10 +44,16 @@ class SingleItem extends PureComponent{
     }
 }
 
+const mapStateToProps = state => {
+    return{
+        selectedCurr: state.shop.selectedCurr
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         addToCart: (id) => dispatch(addToCart(id))
     }
 }
 
-export default connect(null, mapDispatchToProps)(SingleItem) ;
+export default connect(mapStateToProps, mapDispatchToProps)(SingleItem) ;
