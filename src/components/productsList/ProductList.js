@@ -92,7 +92,10 @@ class ProductList extends PureComponent{
     render(){
         
         const {items, loading, error} = this.props;
-        const {products} = items.category; 
+        const {products} = items.category ? items.category : [];
+        if(!products){
+            return <></>
+        } 
         // console.log(items)
         return(
             <main>
@@ -118,10 +121,12 @@ const mapStateToProps = state => ({
     error: state.shop.error
   });
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        onFetchData: () => dispatch(fetchProducts())
-    }
-}
+// const mapDispatchToProps = (dispatch) => {
+//     return{
+//         onFetchData: () => dispatch(fetchProducts())
+//     } 
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default connect(mapStateToProps, {
+    onFetchData: fetchProducts
+})(ProductList);
