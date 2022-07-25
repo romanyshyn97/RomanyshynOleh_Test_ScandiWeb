@@ -5,14 +5,46 @@ import CartItem from "./cartItem/CartItem";
 import {connect} from 'react-redux';
 
 class Cart extends PureComponent{
+    constructor(props){
+        super(props);
+        this.state = {
+            total: 0
+        }
+        
+
+   }
+   componentDidUpdate(){
+    let price = 0;
+    
+        const {cart} = this.props;
+        
+        
+        console.log(cart)
+        cart.forEach(item => {
+            price += item.qty * item.prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount));
+        })
+        this.setState({
+            total:price.toFixed(2)
+        })
+   }
 
     render(){
-        const {cart} = this.props;
+        const {cart, selectedCurr} = this.props;
         return(
             <div className="cart-overlay">
+                <div className="cart_container">
+                <h3>My bag, <span>{this.props.countCart} items</span></h3>
                 {cart.map(item => (
-                    <CartItem key={item.id} itemData={item} countCart={this.props.countCart}/>
+                    <CartItem key={item.id} itemData={item} curr={selectedCurr} />
                 ))}
+                <div className="totalPrice">
+                    <p>Total</p>
+                    {this.props.selectedCurr}{this.state.total}
+                </div>
+                <div>View Bag</div>
+                <div>Check Out</div>
+                </div>
+
                 
             </div>
 
@@ -22,7 +54,8 @@ class Cart extends PureComponent{
 
 const mapStateToProps = state =>{
     return{
-        cart: state.shop.cart
+        cart: state.shop.cart,
+        selectedCurr: state.shop.selectedCurr
     }
 }
 

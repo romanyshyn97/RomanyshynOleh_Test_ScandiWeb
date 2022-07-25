@@ -1,11 +1,11 @@
 import { PureComponent } from "react";
 import React from "react";
 import './singleItem.scss';
-import cart from '../../resources/cart-white.svg';
-import image from '../../resources/product.png'
+import cart from '../../../resources/cart-white.svg';
+
 
 import {connect} from 'react-redux'
-import { addToCart } from "../../redux/Shopping/actions";
+import { addToCart } from "../../../redux/Shopping/actions";
 
 class SingleItem extends PureComponent{
    

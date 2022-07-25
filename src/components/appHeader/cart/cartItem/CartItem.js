@@ -6,37 +6,49 @@ class CartItem extends PureComponent{
 
 
     render(){
-        const {name, price, qty, gallery}  = this.props.itemData;
+        const {name, prices, qty, gallery, attributes}  = this.props.itemData;
+        const {items} = attributes[0];
+        const attr = attributes[0];
+        
         return(
-            <div className="cart">
-                    <h3>My bag, <span>{this.props.countCart} items</span></h3>
+            
+                
+                <div className="cart">
                     <div className="grid">
-                        <div className="left">
+                        <div className="cart__info">
                             <h4>{name}</h4>
-                            <h3>{price}</h3>
-                            <p>Size:</p>
+                            <h3>
+                                {this.props.curr}
+                                {prices.filter(item => item.currency.symbol === this.props.curr).map(filtered => (filtered.amount))}
+                            </h3>
+                            <p>{attr.name}</p>
                             <div className="sizes">
-                                <button>XS</button>
-                                <button>S</button>
-                                <button>M</button>
-                                <button>L</button>    
-                            </div>
-                            <p>Color:</p> 
-                            <div>
-                                <button></button>
+                                
+                               {attr.name === 'Size' && items.map(item => (
+                                    <div className="btn-cart" key={item.id} >{item.value}</div>
+                               ))}
+                               {attr.name === 'Color' && items.map(item => (
+                                    <div className="btn-cart" key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
+                               ))}
+                               {attr.name === 'Capacity' && items.map(item => (
+                                    <div className="btn-cart" key={item.id} style={{width: "50px"}}>{item.value}</div>
+                               ))}
+                                   
                             </div>
                         </div>
-                        <div className="center">
-                            <button>+</button>  
+                        <div className="cart__counter">
+                            <div className="btn-cart">+</div>  
                             <span>{qty}</span>
-                            <button>-</button>
+                            <div className="btn-cart">-</div>
                         </div>
-                        <div className="right">
+                        <div className="cart__image">
                             <img src={gallery[0]} alt="" />
                         </div>
                     </div>
                     
                 </div>
+           
+            
         )
     }
 }

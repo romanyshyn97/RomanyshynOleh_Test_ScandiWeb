@@ -69,7 +69,7 @@
 
 
 import { PureComponent } from "react";
-import SingleItem from "../singleItem/SingleItem";
+import SingleItem from "./singleItem/SingleItem";
 import { v4 as uuidv4 } from 'uuid';
 import './productList.scss'
 

@@ -63,7 +63,7 @@ class AppHeader extends PureComponent{
                 <img className="app__header__logo" src={logo} alt="" />
                 <div className="app__header__right">
                     <Dropdown />
-                    <div onClick={this.onToggle}>
+                    <div onClick={this.onToggle} className='cart_image'>
                         <img src={cart} alt="" />
                         {this.state.cartCount}
                     </div>
