@@ -97,7 +97,7 @@ onOptionClicked = () => {
 
 
     render(){
-      const {isOpen, selectedOption, image} = this.state;
+      const {isOpen,  image} = this.state;
       const {currencies} = this.props.currencies;
       const imgPos = image ? up : down;
      

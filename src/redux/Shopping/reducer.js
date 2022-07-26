@@ -62,14 +62,28 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 cart: state.cart.filter(item => item.id !== action.payload.id),
             }
-        case actionTypes.ADJUST_QTY:
+        case actionTypes.INCREASE_QTY:
             return {
                 ...state,
                 cart: state.cart.map(item => 
                     item.id === action.payload.id 
-                    ? {...item,qty: action.payload.qty} 
+                    ? {...item, qty: item.qty + 1} 
                     : item)
             }
+        case actionTypes.DECREASE_QTY:
+            
+            const toRemove = state.cart.find(item => (item.id === action.payload.id && item.qty > 1) ? true: false);
+            return {
+                ...state,
+                cart: toRemove ?
+                        state.cart.map(item => 
+                        (item.id === action.payload.id)
+                        ? {...item, qty: item.qty - 1} 
+                        : item)
+                    : state.cart.filter(item => item.id !== action.payload.id)
+            }
+       
+        
         case actionTypes.LOAD_CURRENT_ITEM:
             return {
                 ...state,
