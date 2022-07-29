@@ -1,31 +1,28 @@
 import { PureComponent } from "react";
-import product from '../../../../resources/product.png'
-import './cartItem.scss'
-import { connect } from "react-redux";
-import { decreaseQTY, increaseQTY } from "../../../../redux/Shopping/actions";
-import plus from '../../../../resources/plus.svg';
-import minus from '../../../../resources/minus.svg';
-class CartItem extends PureComponent{
+
+import {connect} from 'react-redux';
+import {increaseQTY,decreaseQTY} from '../../../redux/Shopping/actions';
+import './bagItems.scss';
+import plus from '../../../resources/plus.svg';
+import minus from '../../../resources/minus.svg';
+class BagItems extends PureComponent{
 
 
     render(){
         const {id,name, prices, qty, gallery, attributes}  = this.props.itemData;
         const {items} = attributes[0];
         const attr = attributes[0];
-        
         return(
-            
-                
-                <div className="cart">
-                    <div className="grid">
-                        <div className="cart__info">
+            <div className="cart-item">
+                    <div className="cart-item__grid">
+                        <div className="cart-item__left">
                             <h4>{name}</h4>
                             <h3>
                                 {this.props.curr}
                                 {prices.filter(item => item.currency.symbol === this.props.curr).map(filtered => (filtered.amount))}
                             </h3>
                             <p>{attr.name}</p>
-                            <div className="sizes">
+                            <div className="cart-item__left_attr">
                                 
                                {attr.name === 'Size' && items.map(item => (
                                     <div className="btn-cart" key={item.id} >{item.value}</div>
@@ -39,19 +36,23 @@ class CartItem extends PureComponent{
                                    
                             </div>
                         </div>
-                        <div className="cart__counter">
-                            <img src={plus} alt="plus" onClick={() => this.props.onIncrease(id,qty)}/>
-                                <span>{qty}</span>
-                            <img src={minus} alt="minus" onClick={() => this.props.onDecrease(id,qty)}/>
+                        <div className="cart-item__right">
+                            <div className="cart-item__right_counter">
+                                <img src={plus} alt="plus" onClick={() => this.props.onIncrease(id,qty)}/>
+                                    <span>{qty}</span>
+                                <img src={minus} alt="minus" onClick={() => this.props.onDecrease(id,qty)}/>
+                                {/* <div className="btn-cart_counter" onClick={() => this.props.onIncrease(id,qty)} >+</div>  
+                                
+                                <div className="btn-cart_counter" onClick={() => this.props.onDecrease(id,qty)}>-</div> */}
+                            </div>
+                            <div className="cart-item__right_image">
+                                <img src={gallery[0]} alt="" />
+                            </div>
                         </div>
-                        <div className="cart__image">
-                            <img src={gallery[0]} alt="" />
-                        </div>
+                        
                     </div>
                     
                 </div>
-           
-            
         )
     }
 }
@@ -68,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartItem) ;
+export default connect(mapStateToProps, mapDispatchToProps)(BagItems) ;

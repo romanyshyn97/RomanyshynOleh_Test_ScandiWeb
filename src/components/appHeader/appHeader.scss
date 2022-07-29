@@ -1,4 +1,8 @@
 .app {
+    header{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
     &__header {
         display: flex;
         justify-content: space-between;
@@ -12,10 +16,30 @@
             
         }
         &__right{
-            &_image{
-                height: 30px;
-                width: 30px;
-                margin-left: 20px;
+            .cart_icon{
+                position: relative;
+                height: 22px;
+                width: 22px;
+                display: flex;
+                .circle{
+                    position: absolute;
+                    left: 18px;
+                    bottom: 12px;
+                    border-radius: 50%;
+                    background-color: black;
+                    color: white;
+                    width: 20px;
+                    height: 20px;
+                    display: flex; align-items: center; justify-content: center;
+                    p{
+                        font-size: 14px;
+                        font-weight: bold;
+                        line-height: 17px;
+                        padding-bottom: 1px;
+                    }
+                    
+                }
+
             }
             display: flex;
             align-items: center;
@@ -26,6 +50,7 @@
         ul{
             display: flex;
                 justify-content: space-between;
+                padding: 0;
             li{
                 list-style-type: none;
                 margin-left: 20px;

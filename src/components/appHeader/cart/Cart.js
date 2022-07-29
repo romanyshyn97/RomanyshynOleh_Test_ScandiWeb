@@ -4,6 +4,7 @@ import './cart.scss'
 import CartItem from "./cartItem/CartItem";
 import {connect} from 'react-redux';
 import { Scrollbars } from 'react-custom-scrollbars';
+import {Link} from 'react-router-dom';
 
 class Cart extends PureComponent{
     constructor(props){
@@ -47,8 +48,11 @@ class Cart extends PureComponent{
                                 <p>Total</p>
                                 {this.props.selectedCurr}{this.state.total}
                             </div>
-                            <div>View Bag</div>
-                            <div>Check Out</div> 
+                            <Link to="/cart">
+                                <div className="view-bag">View Bag</div>
+                            </Link>
+                            
+                            <div className="check-out">Check Out</div> 
                         </>
                     }                                      
                     </div>

@@ -3,9 +3,9 @@ import React from "react";
 import './singleItem.scss';
 import cart from '../../../resources/cart-white.svg';
 
-
+import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
-import { addToCart } from "../../../redux/Shopping/actions";
+import { addToCart, loadCurrentItem } from "../../../redux/Shopping/actions";
 
 class SingleItem extends PureComponent{
    
@@ -16,9 +16,11 @@ class SingleItem extends PureComponent{
         
         return(
             <div className="single-item" key={id}>
-                <div className="single-item_image">
+                <Link to={`/${id}`}
+                    onClick={() => this.props.loadCurrentItem(this.props.productData)}
+                    className="single-item_image">
                     <img src={gallery[0]} alt={name} />
-                </div>
+                </Link>
                 <div 
                     onClick={()=> this.props.addToCart(id)}
                     className="single-item_cart">
@@ -52,7 +54,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addToCart: (id) => dispatch(addToCart(id))
+        addToCart: (id) => dispatch(addToCart(id)),
+        loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
     }
 }
 

@@ -13,14 +13,14 @@ export const addToCart = (itemID) => {
     }
 }
 
-export const removeFromCart = (itemID) => {
-    return {
-        type: actionTypes.REMOVE_FROM_CART,
-        payload:{
-            id: itemID
-        }
-    }
-}
+// export const removeFromCart = (itemID) => {
+//     return {
+//         type: actionTypes.REMOVE_FROM_CART,
+//         payload:{
+//             id: itemID
+//         }
+//     }
+// }
 
 export const increaseQTY = (itemID, value) => {
     return {

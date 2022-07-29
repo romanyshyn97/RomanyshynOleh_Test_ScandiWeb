@@ -1,0 +1,25 @@
+.single-product{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    &__image{
+        display: flex;
+        width: 700px;
+        .wrapper-images{
+            img{
+                width: 100px;
+                height: 100px;
+                margin-bottom: 10px;
+                object-fit: contain;
+            }
+        }
+        .bigImg{
+            img{
+                width: 500px;
+                height: 600px;
+                object-fit: contain;
+            }
+        }
+    }
+    
+}

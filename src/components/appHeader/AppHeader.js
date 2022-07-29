@@ -7,6 +7,7 @@ import logo from '../../resources/logo.svg';
 import './appHeader.scss'
 
 import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
 
 
 class AppHeader extends PureComponent{
@@ -60,12 +61,15 @@ class AppHeader extends PureComponent{
                         <li>KIDS</li>
                     </ul>
                 </nav>
-                <img className="app__header__logo" src={logo} alt="" />
+                <Link to="/">
+                    <img className="app__header__logo" src={logo} alt="" />
+                </Link>
+                
                 <div className="app__header__right">
                     <Dropdown />
-                    <div onClick={this.onToggle} className='cart_image'>
+                    <div onClick={this.onToggle} className='cart_icon'>
                         <img src={cart} alt="" />
-                        {this.props.cart.length}
+                        <div className="circle"><p>{this.props.cart.length}</p></div>
                     </div>
                     
                     <div className={clazz}><Cart countCart={this.state.cartCount}/></div>
