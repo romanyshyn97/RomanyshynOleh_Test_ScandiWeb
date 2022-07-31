@@ -3,6 +3,8 @@ import { PureComponent } from "react";
 import { connect } from "react-redux";
 import {addToCart} from '../../redux/Shopping/actions';
 import { Scrollbars } from 'react-custom-scrollbars';
+import prev from '../../resources/prev.svg';
+import next from '../../resources/next.svg';
 import './singleProduct.scss'
 
 class SingleProduct extends PureComponent{
@@ -97,19 +99,20 @@ class SingleProduct extends PureComponent{
                 </Scrollbars>
                 <div className="bigImg">
                     {this.state.clicked && (
-                        <div>
-                            
+                        <div >
                             <img src={this.state.clicked} alt="" />
-                            <div onClick={this.handelRotationLeft}>prev</div>
-                            <div onClick={this.handelRotationRight}>next</div>
+                            <div className="click" onClick={this.handelRotationLeft}><img className="arrow-prev" src={prev} alt="" /></div>
+                            <div onClick={this.handelRotationRight}><img className="arrow-next" src={next} alt="" /></div>
                         </div>
                         
                     )}
                     </div>
                 </div>
                 <div className="single-product__info">
-                    <h1>{name}</h1>
-                    <div className="single-product_attr">
+                    <h1 style={{'fontSize': '30px', 'fontWeight':'600', 'paddingBottom': '20px'}}>{name}</h1>
+                    <h2>{attr.name}</h2>
+                    <div className="single-product__info_attr">
+                        
                         {attr.name === 'Size' && items.map(item => (
                             <div className="btn-cart" key={item.id} >{item.value}</div>
                         ))}
@@ -120,14 +123,17 @@ class SingleProduct extends PureComponent{
                             <div className="btn-cart" key={item.id} style={{width: "50px"}}>{item.value}</div>
                         ))}
                     </div>
-                    <p>
-                        {this.props.curr}
-                        {prices.filter(item => item.currency.symbol === this.props.curr).map(filtered => (filtered.amount))}
-                    </p>
-                    <div 
+                    <h2>Price</h2>
+                    <div className="single-product__info_price">
+                        {this.props.selectedCurr}
+                        {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
+                    </div>
+                        
+                    
+                    <button 
                         onClick={() => this.props.addToCart(id)}
-                        className="single-product_add">add to cart</div>
-                    <div className="single-product_descr">
+                        className="single-product__info_add">ADD TO CART</button>
+                    <div className="single-product__info_descr">
                         {description}
                     </div>
                 </div>

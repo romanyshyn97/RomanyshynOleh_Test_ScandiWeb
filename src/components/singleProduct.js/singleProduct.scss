@@ -11,14 +11,69 @@
                 height: 100px;
                 margin-bottom: 10px;
                 object-fit: contain;
+                cursor: pointer;
             }
         }
         .bigImg{
+            position: relative;
+            .arrow-next, .arrow-prev{
+                display: none;
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                cursor: pointer;
+            }
+            .arrow-prev{
+                top: 40%;
+            }
+            .arrow-next{ 
+                top: 40%;
+                right: 0;
+            }
+            &:hover{
+                .arrow-prev, .arrow-next{
+                    display: block;
+                }
+            }
             img{
                 width: 500px;
                 height: 600px;
-                object-fit: contain;
+                object-fit: contain; 
             }
+        }
+    }
+
+    &__info{
+        width: 300px;
+
+        &_attr{
+            display: flex;
+            font-size: 18px;
+            padding-bottom: 20px;
+            .btn-cart{
+                width: 63px;
+                height: 45px;
+                margin-right: 10px;
+                
+
+            }
+        }
+        &_price{
+            font-size: 24px;
+            font-weight: 600;
+            padding-bottom: 20px;
+            
+        }
+        &_add{
+            width: 292px;
+            height: 52px;
+            background-color: #5ECE7B;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            
         }
     }
     
