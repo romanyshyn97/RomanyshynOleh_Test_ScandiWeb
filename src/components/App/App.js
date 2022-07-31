@@ -10,16 +10,27 @@ import SingleProduct from "../singleProduct.js/SingleProduct";
 import './app.css'
 
 class App extends PureComponent {
-  
+    constructor(props){
+      super(props);
+      this.state = {
+        filter: 'all'
+      }
+    }
+    onFilterSelected = (name) => {
+      this.setState({
+          filter: name
+      })
+     
+  }
   render(){
 
     return (
       <Router>
         <div className='app'>
-          <AppHeader />
+          <AppHeader onFilterSelected={this.onFilterSelected} filter={this.state.filter}/>
             <main>
               <Routes>
-                <Route path="/" element={<ProductList/>} />
+                <Route path="/" element={<ProductList filter={this.state.filter}/>} />
                 <Route path="/cart" element={<ViewBag/>} />
                 <Route path="/:id" element={<SingleProduct/>}/>
               </Routes>

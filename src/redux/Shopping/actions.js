@@ -48,6 +48,12 @@ export const loadCurrentItem = (item) => {
     }
 }
 
+export const changeCategory = () => {
+  return{
+    type: actionTypes.CHANGE_CATEGORY
+  }
+}
+
 export const changeCurrency = (currency) => {
   return{
     type: actionTypes.CHANGE_CURRENCY,
@@ -86,8 +92,8 @@ export const fetchProductsBegin = () => ({
     type: actionTypes.FETCH_PRODUCTS_FAILURE,
     payload: { error }
   });
-
-  export function fetchProducts() {
+ 
+  export function fetchProducts(name) {
     return dispatch => {
       dispatch(fetchProductsBegin());
       return fetch('http://localhost:4000/', {
@@ -96,8 +102,8 @@ export const fetchProductsBegin = () => ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: ` query category {
-            category(input:{title:"all"}){
+          query: ` query category($category: String!) {
+            category(input:{title:$category}){
                  name,
               products{
                 id,
@@ -120,8 +126,11 @@ export const fetchProductsBegin = () => ({
               }
             }
             }`,
+            variables: {
+              category: name.toLowerCase()
+            },
         }),
-        variables: {}
+      
       })
         .then(handleErrors)
         .then(res => res.json())

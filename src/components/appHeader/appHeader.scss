@@ -49,18 +49,22 @@
     nav{
         ul{
             display: flex;
-                justify-content: space-between;
-                padding: 0;
+            justify-content: space-between;
+            padding: 0;
+            cursor: pointer;
+            
+            .but-non{
+                border-bottom: 1px solid white ;
+                color:white;
+            }
+            .butt-active{
+                color: #5ECE7B;
+                border-bottom: 1px solid #5ECE7B ;
+            }
             li{
                 list-style-type: none;
                 margin-left: 20px;
-                border-bottom: 1px solid white ;
                 
-                &:hover{
-                    color: #5ECE7B;
-                
-                    border-bottom: 1px solid #5ECE7B ;
-                }
             }
                
         }

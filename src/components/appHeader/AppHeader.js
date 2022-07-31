@@ -15,23 +15,14 @@ class AppHeader extends PureComponent{
         super(props);
         this.state = {
             opened: false,
-            cartCount: 0
+            cartCount: 0,
+            
+
         }
         
 
    }
 
-//    componentDidMount(){
-//         let count = 0;
-//         const {cart} = this.props;
-//         cart.forEach(item => {
-//             count += item.qty;
-//         })
-//         this.setState({
-//             cartCount:count
-//         })
-        
-//    }
    componentDidUpdate(){
     let count = 0;
         const {cart} = this.props;
@@ -41,24 +32,44 @@ class AppHeader extends PureComponent{
         this.setState({
             cartCount:count
         })
+        console.log(this.props.filter)
+       
+        
    }
 
    onToggle = () => {
     this.setState({
         opened:!this.state.opened
     })
+    
 }
+    
    
     render(){
         const clazz = this.state.opened ? 'opened': 'closed';
-        
+        const categories = [
+            {category: 'all', label: 'ALL'},
+            {category: 'tech', label: 'TECH'},
+            {category: 'clothes', label: 'CLOTHES'}
+        ];
+        const {onFilterSelected} = this.props;
         return(
             <header className="app__header">
                 <nav className="app__header__nav">
                     <ul>
-                        <li>WOMEN</li>
-                        <li>MEN</li>
-                        <li>KIDS</li>
+                        {categories.map(({category,label}) => {
+                            const active = this.props.filter === category;
+                            const clazz = active ? 'butt-active' : 'butt-non';
+                            return(
+                                <li 
+                                    className={`${clazz}`}
+                                    key={category}
+                                    onClick={() => onFilterSelected(category)}
+                                    >{label}
+                                </li>
+                            )
+                        })}
+                        
                     </ul>
                 </nav>
                 <Link to="/">

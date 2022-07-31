@@ -7,7 +7,9 @@ const INITIAL_STATE = {
     error: null,
     cart: [],
     currentItem: null,
-    selectedCurr: '$'
+    selectedCurr: '$',
+    
+    
 }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
@@ -62,6 +64,8 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         //         ...state,
         //         cart: state.cart.filter(item => item.id !== action.payload.id),
         //     }
+
+
         case actionTypes.INCREASE_QTY:
             return {
                 ...state,
@@ -84,6 +88,11 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             }
        
         
+        case actionTypes.LOAD_CURRENT_ITEM:
+            return {
+                ...state,
+                currentItem: action.payload
+            } 
         case actionTypes.LOAD_CURRENT_ITEM:
             return {
                 ...state,
