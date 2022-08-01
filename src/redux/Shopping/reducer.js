@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     cart: [],
     currentItem: null,
     selectedCurr: '$',
+    selectedAttr: 'xs'
     
     
 }
@@ -58,6 +59,14 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                         ? {...item, qty: item.qty + 1} 
                         : item) 
                     : [...state.cart, {...item, qty: 1}],
+                selectedAttr: action.payload.attr
+
+                
+            }
+        case actionTypes.SELECT_ATTRIBUTE:
+            return{
+                ...state,
+                selectedAttr: action.payload
             }
         // case actionTypes.REMOVE_FROM_CART:
         //     return {

@@ -1,7 +1,7 @@
 import { PureComponent } from "react";
 
 import { connect } from "react-redux";
-import {addToCart} from '../../redux/Shopping/actions';
+import {addToCart, selectAttr} from '../../redux/Shopping/actions';
 import { Scrollbars } from 'react-custom-scrollbars';
 import prev from '../../resources/prev.svg';
 import next from '../../resources/next.svg';
@@ -12,7 +12,8 @@ class SingleProduct extends PureComponent{
         super(props);
         this.state = {
             clicked: props.current.gallery[0],
-            currentIndex: null
+            currentIndex: null,
+            attribute: null
         }
         
         
@@ -76,10 +77,17 @@ class SingleProduct extends PureComponent{
             currentIndex:newIndex
         })
       };
+    onSelectedAttr = (attr) => {
+        
+        this.setState({
+            attribute: attr
+        })
+        
+    }
    
 
     render(){
-        const {id,name, description, gallery, prices, attributes} = this.props.current;
+        const {id,name,brand,inStock,description, gallery, prices, attributes} = this.props.current;
         const {items} = attributes[0];
         const attr = attributes[0];
         return(
@@ -109,18 +117,31 @@ class SingleProduct extends PureComponent{
                     </div>
                 </div>
                 <div className="single-product__info">
-                    <h1 style={{'fontSize': '30px', 'fontWeight':'600', 'paddingBottom': '20px'}}>{name}</h1>
+                    <h1 style={{'fontSize': '30px', 'fontWeight':'600', 'paddingBottom': '20px'}}>{brand}{' '}{name}</h1>
                     <h2>{attr.name}</h2>
                     <div className="single-product__info_attr">
                         
-                        {attr.name === 'Size' && items.map(item => (
-                            <div className="btn-cart" key={item.id} >{item.value}</div>
+                        {attr.name === 'Size' && items.map((item, i) => {
+                            const active = this.state.attribute === item.value;
+                            const clazz = active ? 'attr-active' : 'attr-non';
+                            return(
+                                <div
+                                    onClick={() => this.onSelectedAttr(item.value)} 
+                                    className={`btn-cart ${clazz}`} key={i} 
+                                >
+                                    {item.value}
+                                </div>
+                            )
+                         })}
+                        {attr.name === 'Color' && items.map((item, i)=> (
+                            <div 
+                                onClick={() => this.props.selectAttr(item.value)}
+                                className="btn-cart" key={i} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
                         ))}
-                        {attr.name === 'Color' && items.map(item => (
-                            <div className="btn-cart" key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
-                        ))}
-                        {attr.name === 'Capacity' && items.map(item => (
-                            <div className="btn-cart" key={item.id} style={{width: "50px"}}>{item.value}</div>
+                        {attr.name === 'Capacity' && items.map((item, i) => (
+                            <div 
+                                onClick={() => this.props.selectAttr(item.value)}
+                                className="btn-cart" key={i} style={{width: "50px"}}>{item.value}</div>
                         ))}
                     </div>
                     <h2>Price</h2>
@@ -129,10 +150,13 @@ class SingleProduct extends PureComponent{
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
                     </div>
                         
+                    {inStock ?<button 
+                    onClick={() => this.props.addToCart(id,this.state.attribute)}
+                    className="single-product__info_add">ADD TO CART</button> : <button 
+                    disabled
+                    className="single-product__info_add">ADD TO CART</button>
+                    }
                     
-                    <button 
-                        onClick={() => this.props.addToCart(id)}
-                        className="single-product__info_add">ADD TO CART</button>
                     <div className="single-product__info_descr">
                         {description}
                     </div>
@@ -150,7 +174,9 @@ const mapStateToProps = (state) => {
   
   const mapDispatchToProps = (dispatch) => {
     return {
-      addToCart: (id) => dispatch(addToCart(id)),
+      addToCart: (id,attr) => dispatch(addToCart(id,attr)),
+      
+      
     };
   };
 

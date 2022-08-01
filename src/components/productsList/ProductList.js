@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import './productList.scss'
 
 import {connect} from 'react-redux';
-
+import cartIcon from '../../resources/cart-white.svg';
 
 import Service from "../../service/Service";
 import { fetchProducts } from "../../redux/Shopping/actions";
@@ -15,7 +15,7 @@ class ProductList extends PureComponent{
     componentDidMount(){
         this.props.onFetchData(this.props.filter)
         // .then(res => console.log(res))
-        console.log(this.props.filter)
+        
             
     }
     componentDidUpdate(prevProps){
@@ -31,11 +31,12 @@ class ProductList extends PureComponent{
 
     render(){
         
-        const {items, loading, error} = this.props;
+        const {items, loading, error, cart} = this.props;
         const {products} = items.category ? items.category : [];
         if(!products){
             return <></>
         } 
+        console.log(this.props.cart)
         // console.log(items)
         return(
             <main>
@@ -43,7 +44,20 @@ class ProductList extends PureComponent{
                 <div className="grid">
                 
                 {products.map(item => (
+                    <div>
                         <SingleItem key={item.id} productData={item} />
+                        {cart.map(card => 
+                            {item.id === card.id &&
+                                (<div 
+                                className="single-item_cartIcon">
+                                <img src={cartIcon} alt="cart" />
+                                </div>)}
+                            
+                        )}
+                        
+
+                    </div>
+                        
                     ))}
                     
                     
@@ -59,7 +73,8 @@ const mapStateToProps = state => ({
     selectedCurr: state.shop.selectedCurr,
     loading: state.shop.loading,
     error: state.shop.error,
-    category: state.shop.category
+    category: state.shop.category,
+    cart: state.shop.cart
   });
 
 // const mapDispatchToProps = (dispatch) => {

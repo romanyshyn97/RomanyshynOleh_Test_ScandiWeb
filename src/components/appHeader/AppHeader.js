@@ -32,7 +32,7 @@ class AppHeader extends PureComponent{
         this.setState({
             cartCount:count
         })
-        console.log(this.props.filter)
+        
        
         
    }
@@ -66,6 +66,7 @@ class AppHeader extends PureComponent{
                                     key={category}
                                     onClick={() => onFilterSelected(category)}
                                     >{label}
+                                    
                                 </li>
                             )
                         })}

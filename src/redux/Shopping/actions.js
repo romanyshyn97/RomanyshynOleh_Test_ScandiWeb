@@ -4,11 +4,12 @@ import Service from '../../service/Service';
 
 const dataService = new Service();
 
-export const addToCart = (itemID) => {
+export const addToCart = (itemID, attr) => {
     return{
         type: actionTypes.ADD_TO_CART,
         payload: {
-            id:itemID
+            id:itemID,
+            attr
         }
     }
 }
@@ -60,6 +61,12 @@ export const changeCurrency = (currency) => {
     payload: currency
   }
 }
+export const selectAttr = (attr) => {
+  return{
+    type: actionTypes.SELECT_ATTRIBUTE,
+    payload: attr
+  }
+}
 
 // export const fetchData = () => {
 //     return async (dispatch) => {
@@ -105,9 +112,12 @@ export const fetchProductsBegin = () => ({
           query: ` query category($category: String!) {
             category(input:{title:$category}){
                  name,
+                 
               products{
                 id,
                 name,
+                brand,
+                inStock,
                 description,
                 gallery,
                 prices{
@@ -121,7 +131,7 @@ export const fetchProductsBegin = () => ({
                   items{
                     displayValue,
                     value
-                  }
+                  },
                 }
               }
             }

@@ -9,7 +9,7 @@ class CartItem extends PureComponent{
 
 
     render(){
-        const {id,name, prices, qty, gallery, attributes}  = this.props.itemData;
+        const {id,name,brand, prices, qty, gallery, attributes}  = this.props.itemData;
         const {items} = attributes[0];
         const attr = attributes[0];
         
@@ -19,7 +19,8 @@ class CartItem extends PureComponent{
                 <div className="cart">
                     <div className="grid">
                         <div className="cart__info">
-                            <h4>{name}</h4>
+                            
+                            <h4>{brand}<br/>{name}</h4>
                             <h3>
                                 {this.props.curr}
                                 {prices.filter(item => item.currency.symbol === this.props.curr).map(filtered => (filtered.amount))}
@@ -58,7 +59,8 @@ class CartItem extends PureComponent{
 const mapStateToProps = state =>{
     return{
         cart: state.shop.cart,
-        selectedCurr: state.shop.selectedCurr
+        selectedCurr: state.shop.selectedCurr,
+        selectedAttr: state.shop.selectedAttr
     }
 }
 const mapDispatchToProps = (dispatch) => {
