@@ -20,7 +20,7 @@ class SingleItem extends PureComponent{
                 {inStock && 
                 
                 <div >
-                <Link to={`/${id}`}
+                <Link to={`/${this.props.filter}/${id}`}
                     onClick={() => this.props.loadCurrentItem(this.props.productData)}
                     className="single-item_image">
                     <img src={gallery[0]} alt={name} />
@@ -45,7 +45,7 @@ class SingleItem extends PureComponent{
                 
                 <div className="inStock" >
                     <h1>OUT OF STOCK</h1>
-                <Link to={`/${id}`}
+                <Link to={`/${this.props.filter}/${id}`}
                     onClick={() => this.props.loadCurrentItem(this.props.productData)}
                     className="single-item_image">
                     <img src={gallery[0]} alt={name} />

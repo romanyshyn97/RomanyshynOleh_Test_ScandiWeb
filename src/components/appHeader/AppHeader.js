@@ -7,14 +7,15 @@ import logo from '../../resources/logo.svg';
 import './appHeader.scss'
 
 import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+
 
 
 class AppHeader extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
-            opened: false,
+            isOpen: false,
             cartCount: 0,
             
 
@@ -39,14 +40,14 @@ class AppHeader extends PureComponent{
 
    onToggle = () => {
     this.setState({
-        opened:!this.state.opened
+        isOpen:!this.state.isOpen
     })
     
 }
     
    
     render(){
-        const clazz = this.state.opened ? 'opened': 'closed';
+        const clazz = this.state.isOpen ? 'opened': 'closed';
         const categories = [
             {category: 'all', label: 'ALL'},
             {category: 'tech', label: 'TECH'},
@@ -61,30 +62,30 @@ class AppHeader extends PureComponent{
                             const active = this.props.filter === category;
                             const clazz = active ? 'butt-active' : 'butt-non';
                             return(
+                                <NavLink end to={`/${category}`}>
                                 <li 
                                     className={`${clazz}`}
                                     key={category}
                                     onClick={() => onFilterSelected(category)}
                                     >{label}
                                     
-                                </li>
+                                </li></NavLink>
+                                
                             )
                         })}
                         
                     </ul>
                 </nav>
-                <Link to="/">
-                    <img className="app__header__logo" src={logo} alt="" />
-                </Link>
-                
+                <img className="app__header__logo" src={logo} alt="" />
                 <div className="app__header__right">
                     <Dropdown />
                     <div onClick={this.onToggle} className='cart_icon'>
                         <img src={cart} alt="" />
                         <div className="circle"><p>{this.state.cartCount}</p></div>
                     </div>
-                    
-                    <div className={clazz}><Cart countCart={this.state.cartCount}/></div>
+                    <div className={clazz}>
+                        <Cart countCart={this.state.cartCount} close={this.onToggle} isOpen={this.state.isOpen}/>
+                    </div>
                     
                 </div>
             </header>

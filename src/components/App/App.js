@@ -30,9 +30,9 @@ class App extends PureComponent {
           <AppHeader onFilterSelected={this.onFilterSelected} filter={this.state.filter}/>
             <main>
               <Routes>
-                <Route path="/" element={<ProductList filter={this.state.filter}/>} />
+                <Route path="/:category" element={<ProductList filter={this.state.filter}/>} />
                 <Route path="/cart" element={<ViewBag/>} />
-                <Route path="/:id" element={<SingleProduct/>}/>
+                <Route path="/:category/:id" element={<SingleProduct />}/>
               </Routes>
               
             

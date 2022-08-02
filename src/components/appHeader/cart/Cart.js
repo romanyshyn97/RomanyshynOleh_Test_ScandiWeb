@@ -5,6 +5,7 @@ import CartItem from "./cartItem/CartItem";
 import {connect} from 'react-redux';
 import { Scrollbars } from 'react-custom-scrollbars';
 import {Link} from 'react-router-dom';
+import OutsideAlerter from "../currencyDropDown/OutsideClick";
 
 class Cart extends PureComponent{
     constructor(props){
@@ -38,7 +39,8 @@ class Cart extends PureComponent{
                 <div>
                     
                     <div className="cart-overlay">
-                    <div className="cart_container">
+                        <OutsideAlerter close={this.props.close} isOpen={this.props.isOpen}>
+                        <div className="cart_container">
                     {cart.length === 0 && <><div>YOUR SHOPPING CART IS EMPTY</div></>}
                     {cart.length > 0 && 
                         <> 
@@ -62,7 +64,9 @@ class Cart extends PureComponent{
                         </>
                     }                                      
                     </div>
-                </div>
+                        </OutsideAlerter>
+                    
+                    </div>
                 </div>
                
     

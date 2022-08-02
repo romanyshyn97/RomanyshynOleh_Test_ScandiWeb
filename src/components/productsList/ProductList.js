@@ -45,7 +45,7 @@ class ProductList extends PureComponent{
                 
                 {products.map(item => (
                     <div>
-                        <SingleItem key={item.id} productData={item} />
+                        <SingleItem key={item.id} productData={item} filter={this.props.filter}/>
                         {cart.map(card => 
                             {item.id === card.id &&
                                 (<div 

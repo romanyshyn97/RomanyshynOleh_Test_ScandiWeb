@@ -93,7 +93,7 @@ componentWillUnmount() {
   document.removeEventListener('click', this.handleClickOutside, true);
 };
 
-toggling = () => {
+onToggle = () => {
   this.setState({
     isOpen: !this.state.isOpen,
     image: !this.state.image
@@ -117,9 +117,9 @@ onOptionClicked = () => {
      
       return (
         <>
-        <OutsideAlerter close={this.toggling} isOpen={isOpen}>
+        <OutsideAlerter close={this.onToggle} isOpen={isOpen}>
           <DropDownContainer>
-              <DropDownHeader onClick={this.toggling}>
+              <DropDownHeader onClick={this.onToggle}>
                 {this.props.selectedCurr}
                 <img src={imgPos} alt="" />   
               </DropDownHeader>
