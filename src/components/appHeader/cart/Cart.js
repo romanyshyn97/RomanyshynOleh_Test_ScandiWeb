@@ -10,18 +10,22 @@ class Cart extends PureComponent{
     constructor(props){
         super(props);
         this.state = {
-            total: 0
+            total: 0,
+            cartCount: 0
         }
         
    }
    componentDidUpdate(){
     let price = 0;
+    let count = 0;
     const {cart} = this.props;
     cart.forEach(item => {
         price += item.qty * item.prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount));
+        count += item.qty;
     })
     this.setState({
-        total:price.toFixed(2)
+        total:price.toFixed(2),
+        cartCount: count
     })
    }
 
@@ -38,8 +42,8 @@ class Cart extends PureComponent{
                     {cart.length === 0 && <><div>YOUR SHOPPING CART IS EMPTY</div></>}
                     {cart.length > 0 && 
                         <> 
-                            <h3>My bag, <span>{cart.length} items</span></h3>
-                                <Scrollbars style={{ width: 360, height: 440 }}>
+                            <h3>My bag, <span>{this.state.cartCount} items</span></h3>
+                                <Scrollbars style={{ width: 330, height: 440 }}>
                                     {cart.map(item => (
                                         <CartItem key={item.id} itemData={item} curr={selectedCurr} />                                                                              
                                     ))}
@@ -48,11 +52,13 @@ class Cart extends PureComponent{
                                 <p>Total</p>
                                 {this.props.selectedCurr}{this.state.total}
                             </div>
-                            <Link to="/cart">
-                                <div className="view-bag">View Bag</div>
-                            </Link>
-                            
-                            <div className="check-out">Check Out</div> 
+                            <div className="cart_bottom">
+                                <Link to="/cart">
+                                    <button className="cart_bottom_btn">VIEW BAG</button>
+                                </Link>
+                                
+                                <button className="cart_bottom_btn">CHECK OUT</button> 
+                            </div>
                         </>
                     }                                      
                     </div>

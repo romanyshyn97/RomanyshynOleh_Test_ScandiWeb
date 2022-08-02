@@ -81,7 +81,7 @@ class AppHeader extends PureComponent{
                     <Dropdown />
                     <div onClick={this.onToggle} className='cart_icon'>
                         <img src={cart} alt="" />
-                        <div className="circle"><p>{this.props.cart.length}</p></div>
+                        <div className="circle"><p>{this.state.cartCount}</p></div>
                     </div>
                     
                     <div className={clazz}><Cart countCart={this.state.cartCount}/></div>

@@ -109,8 +109,9 @@ class SingleProduct extends PureComponent{
                     {this.state.clicked && (
                         <div >
                             <img src={this.state.clicked} alt="" />
-                            <div className="click" onClick={this.handelRotationLeft}><img className="arrow-prev" src={prev} alt="" /></div>
-                            <div onClick={this.handelRotationRight}><img className="arrow-next" src={next} alt="" /></div>
+                            {this.props.current.gallery.length > 1 && (<><div className="click" onClick={this.handelRotationLeft}><img className="arrow-prev" src={prev} alt="" /></div>
+                            <div onClick={this.handelRotationRight}><img className="arrow-next" src={next} alt="" /></div></> ) }
+                            
                         </div>
                         
                     )}
@@ -118,7 +119,7 @@ class SingleProduct extends PureComponent{
                 </div>
                 <div className="single-product__info">
                     <h1 style={{'fontSize': '30px', 'fontWeight':'600', 'paddingBottom': '20px'}}>{brand}{' '}{name}</h1>
-                    <h2>{attr.name}</h2>
+                    {attributes !== [] ?<h2>{attr.name}</h2> : ''  }
                     <div className="single-product__info_attr">
                         
                         {attr.name === 'Size' && items.map((item, i) => {
@@ -143,6 +144,8 @@ class SingleProduct extends PureComponent{
                                 onClick={() => this.props.selectAttr(item.value)}
                                 className="btn-cart" key={i} style={{width: "50px"}}>{item.value}</div>
                         ))}
+                        {attributes === undefined && <div>1</div>
+                        }
                     </div>
                     <h2>Price</h2>
                     <div className="single-product__info_price">

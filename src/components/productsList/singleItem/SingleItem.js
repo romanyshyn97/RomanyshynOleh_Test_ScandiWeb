@@ -43,7 +43,7 @@ class SingleItem extends PureComponent{
         }
         {!inStock && 
                 
-                <div className="inStock" disabled="true">
+                <div className="inStock" >
                     <h1>OUT OF STOCK</h1>
                 <Link to={`/${id}`}
                     onClick={() => this.props.loadCurrentItem(this.props.productData)}

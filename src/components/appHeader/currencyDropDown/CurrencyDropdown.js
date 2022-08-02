@@ -5,11 +5,14 @@ import styled from 'styled-components';
 import up from '../../../resources/arrowUp.svg';
 import down from '../../../resources/arrowDown.svg';
 import './currencyDropdown.scss'
+import OutsideAlerter from "./OutsideClick";
 
 import Service from "../../../service/Service";
 
 import { fetchCurrencies, changeCurrency } from "../../../redux/Shopping/actions";
 import { connect } from "react-redux";
+
+
 
 
 const DropDownContainer = styled("div")`
@@ -72,12 +75,23 @@ class Dropdown extends Component {
       image: false,
      
     }
+    this.ref = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
+  handleClickOutside(event) {
+    if (this.ref.current && !this.ref.current.contains(event.target)) {
+      this.props.onClickOutside && this.props.onClickOutside();
+    }
+  };
   
 componentDidMount(){
   this.props.onFetchData()
+  document.addEventListener('click', this.handleClickOutside, true);
   // .then(res=>console.log(res))
 } 
+componentWillUnmount() {
+  document.removeEventListener('click', this.handleClickOutside, true);
+};
 
 toggling = () => {
   this.setState({
@@ -103,15 +117,15 @@ onOptionClicked = () => {
      
       return (
         <>
-        <DropDownContainer>
+        <OutsideAlerter close={this.toggling} isOpen={isOpen}>
+          <DropDownContainer>
               <DropDownHeader onClick={this.toggling}>
                 {this.props.selectedCurr}
-                <img src={imgPos} alt="" />
-    
+                <img src={imgPos} alt="" />   
               </DropDownHeader>
               {isOpen && (
-                <DropDownListContainer>
-                  <DropDownList>
+                <DropDownListContainer>                 
+                  <DropDownList ref={this.ref}>
                     {currencies.map(option => (
                       <ListItem 
                             onClick={()=> {this.props.onSelected(option.symbol); this.onOptionClicked()}} 
@@ -125,6 +139,8 @@ onOptionClicked = () => {
                 </DropDownListContainer>
               )}
             </DropDownContainer>
+        </OutsideAlerter>
+        
             </>
               
             )

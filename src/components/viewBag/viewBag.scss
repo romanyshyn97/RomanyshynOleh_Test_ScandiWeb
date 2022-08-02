@@ -10,3 +10,12 @@
         color: #5ECE7B;
     }
 }
+.summary{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 200px;
+    h3,h4{
+        margin: 0;
+    }
+}
