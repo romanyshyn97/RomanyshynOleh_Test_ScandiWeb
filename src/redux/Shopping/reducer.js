@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     cart: [],
     currentItem: null,
     selectedCurr: '$',
-    selectedAttr: 'xs'
+    
     
     
 }
@@ -51,15 +51,20 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.ADD_TO_CART:
             const item = state.items.category.products.find(prod => prod.id === action.payload.id);
             const inCart = state.cart.find(item => item.id === action.payload.id ? true: false);
+            const inAttr = state.cart.find(item => item.atr === action.payload.attr ? true: false); 
+            
+            
             return {
                 ...state,
                 cart: inCart 
                     ? state.cart.map(item => 
-                        item.id === action.payload.id 
+                    (item.id === action.payload.id && item.atr === action.payload.attr)
                         ? {...item, qty: item.qty + 1} 
                         : item) 
-                    : [...state.cart, {...item, qty: 1}],
-                selectedAttr: action.payload.attr
+                            
+                    : [...state.cart, {...item, qty: 1, atr: action.payload.attr }]
+                            
+                
 
                 
             }
@@ -97,11 +102,6 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             }
        
         
-        case actionTypes.LOAD_CURRENT_ITEM:
-            return {
-                ...state,
-                currentItem: action.payload
-            } 
         case actionTypes.LOAD_CURRENT_ITEM:
             return {
                 ...state,

@@ -36,7 +36,7 @@ class ProductList extends PureComponent{
         if(!products){
             return <></>
         } 
-        console.log(this.props.cart)
+       
         // console.log(items)
         return(
             <main>

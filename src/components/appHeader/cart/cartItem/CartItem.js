@@ -9,7 +9,7 @@ class CartItem extends PureComponent{
 
 
     render(){
-        const {id,name,brand, prices, qty, gallery, attributes}  = this.props.itemData;
+        const {id,name,brand, prices, qty, gallery, atr, attributes}  = this.props.itemData;
         const {items} = attributes[0];
         const attr = attributes[0];
         
@@ -28,9 +28,15 @@ class CartItem extends PureComponent{
                             <p>{attr.name}</p>
                             <div className="sizes">
                                 
-                               {attr.name === 'Size' && items.map(item => (
-                                    <div className="btn-cart" key={item.id} >{item.value}</div>
-                               ))}
+                               {attr.name === 'Size' && items.map(item => {
+                                    const active = atr === item.value;
+                                    const clazz = active ? 'btn-cart-active' : 'btn-cart';
+                                    return(
+                                        <div className={`btn-cart ${clazz}`} key={item.id} >{item.value}</div>
+                                    )
+                                    
+                                    
+                               })}
                                {attr.name === 'Color' && items.map(item => (
                                     <div className="btn-cart" key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
                                ))}

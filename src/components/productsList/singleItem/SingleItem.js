@@ -15,6 +15,7 @@ class SingleItem extends PureComponent{
         const {id,name, inStock,gallery, prices, brand} = this.props.productData;
         const {cart} = this.props;
         
+       
         return(
             <div className="single-item" key={id}>
                 {inStock && 

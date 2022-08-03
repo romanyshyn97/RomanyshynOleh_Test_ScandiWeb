@@ -38,9 +38,14 @@ class ViewBag extends PureComponent{
             <div className="bag-page">
                 <h1>CART</h1>
                 {cart.length === 0 && <Link to="/" className="back">SHOPPING CART IS EMPTY . BACK TO MAIN PAGE</Link>}
-                {cart.length > 0 && cart.map(item => (
+                {cart.length > 0 && 
+                <div>
+                    {cart.map(item => (
                     <div>
                         <BagItems key={item.id} itemData={item} curr={selectedCurr} />
+                        
+                    </div>                                                                            
+                ))}
                         <div className="summary">
                             <h4>Tax 21% : </h4>
                             <h3>{this.props.selectedCurr}{' '}{((this.state.total) * 0.21).toFixed(2)}</h3>
@@ -49,11 +54,11 @@ class ViewBag extends PureComponent{
                             <h4>Total:</h4>
                             <h3> {this.props.selectedCurr}{' '}{this.state.total}</h3>
                         </div>
-                        
-                    </div>
-                                                                                                 
-                ))}
-               
+                        </div>
+                }
+                
+                
+                
             </div>
 
         )

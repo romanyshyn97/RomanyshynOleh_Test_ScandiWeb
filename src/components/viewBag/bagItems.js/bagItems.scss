@@ -49,7 +49,7 @@
     }
     
     .btn-cart{
-        cursor: pointer;
+        
         border: 1px solid black;
         width: 63px;
         height: 45px;
@@ -60,13 +60,11 @@
         font-size: 16px;
         line-height: 18px;
         font-weight: 500;
-        &:hover{
-            outline-offset: 2px;
-            // border: 1px solid #5ECE7B;
-            border: 1px solid transparent;
-            outline: 2px solid #5ECE7B;
-           
-        }
+        
     
+}
+.btn-cart-active{
+    background-color: black;
+    color: white;
 }
 }
