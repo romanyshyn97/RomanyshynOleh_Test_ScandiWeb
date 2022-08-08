@@ -1,7 +1,7 @@
 import { PureComponent } from "react";
 import React from "react";
 import './singleItem.scss';
-
+import cartIcon from '../../../resources/cart-white.svg'
 
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
@@ -38,7 +38,20 @@ class SingleItem extends PureComponent{
                         {/* {prices.map(item => <div>{item.currency.filter(item=> item.symbol)} {item.amount}</div>)} */}
                         {this.props.selectedCurr}
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
-                    </div>                                                                                       
+                    </div> 
+                    {cart.map(card => {
+                            const active = id === card.id;
+                            const clazz = active ? 'single-item_cartIcon' : 'single-item_cartIcon-non';
+                            return(
+                                <div className={`${clazz}`}>
+                                    <img src={cartIcon} alt="cart" />
+                                </div>
+                            )
+                        }
+                            
+                                    
+                            
+                        )}                                                                                      
                 </div>
             </div>
         }

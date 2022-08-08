@@ -83,6 +83,17 @@
             }
             
         }
+        &_descr{
+            margin-top: 20px;
+            margin-bottom: 50px;
+            font-size: 22px;
+            max-height:400px;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+              }
+        }
+
     }
     
 }

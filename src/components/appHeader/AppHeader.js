@@ -4,7 +4,7 @@ import Dropdown from "./currencyDropDown/CurrencyDropdown";
 import Cart from "./cart/Cart";
 import cart from '../../resources/cart.svg';
 import logo from '../../resources/logo.svg';
-import './appHeader.scss'
+import './AppHeader.scss'
 
 import {connect} from 'react-redux';
 import {Link, NavLink} from "react-router-dom";
@@ -62,21 +62,24 @@ class AppHeader extends PureComponent{
                             const active = this.props.filter === category;
                             const clazz = active ? 'butt-active' : 'butt-non';
                             return(
-                                <NavLink end to={`/${category}`}>
+                                <Link to="/">
                                 <li 
                                     className={`${clazz}`}
                                     key={category}
                                     onClick={() => onFilterSelected(category)}
                                     >{label}
                                     
-                                </li></NavLink>
+                                </li></Link>
                                 
                             )
                         })}
                         
                     </ul>
                 </nav>
-                <img className="app__header__logo" src={logo} alt="" />
+                <Link to="/">
+                    <img className="app__header__logo" src={logo} alt="" />
+                </Link>
+                
                 <div className="app__header__right">
                     <Dropdown />
                     <div onClick={this.onToggle} className='cart_icon'>

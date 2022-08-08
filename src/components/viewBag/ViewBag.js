@@ -1,9 +1,9 @@
 import { PureComponent } from "react";
-import BagItems from "./bagItems.js/BagItems";
+import BagItems from "./bagItems.js/BagItem";
 
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
-import './viewBag.scss';
+import './ViewBag.scss';
 class ViewBag extends PureComponent{
     constructor(props){
         super(props);
@@ -33,6 +33,7 @@ class ViewBag extends PureComponent{
 
     render(){
         const {cart, selectedCurr} = this.props;
+        const {cartCount, total} = this.state;
 
         return(
             <div className="bag-page">
@@ -48,11 +49,11 @@ class ViewBag extends PureComponent{
                 ))}
                         <div className="summary">
                             <h4>Tax 21% : </h4>
-                            <h3>{this.props.selectedCurr}{' '}{((this.state.total) * 0.21).toFixed(2)}</h3>
+                            <h3>{selectedCurr}{' '}{((total) * 0.21).toFixed(2)}</h3>
                             <h4>Quantity: </h4>
-                            <h3>{this.state.cartCount}</h3>
+                            <h3>{cartCount}</h3>
                             <h4>Total:</h4>
-                            <h3> {this.props.selectedCurr}{' '}{this.state.total}</h3>
+                            <h3> {selectedCurr}{' '}{total}</h3>
                         </div>
                         </div>
                 }

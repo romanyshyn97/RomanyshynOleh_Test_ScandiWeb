@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 import product from '../../../resources/product.png'
-import './cart.scss'
+import './Cart.scss'
 import CartItem from "./cartItem/CartItem";
 import {connect} from 'react-redux';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -33,6 +33,7 @@ class Cart extends PureComponent{
     render(){
         const {cart, selectedCurr} = this.props;
         const {countCart} = this.props;
+        const {total, cartCount} = this.state;
 
         
             return(
@@ -44,7 +45,7 @@ class Cart extends PureComponent{
                     {cart.length === 0 && <><div>YOUR SHOPPING CART IS EMPTY</div></>}
                     {cart.length > 0 && 
                         <> 
-                            <h3>My bag, <span>{this.state.cartCount} items</span></h3>
+                            <h3>My bag, <span>{cartCount} items</span></h3>
                                 <Scrollbars style={{ width: 330, height: 440 }}>
                                     {cart.map(item => (
                                         <CartItem key={item.id} itemData={item} curr={selectedCurr} />                                                                              
@@ -52,7 +53,7 @@ class Cart extends PureComponent{
                                 </Scrollbars>
                             <div className="totalPrice">
                                 <p>Total</p>
-                                {this.props.selectedCurr}{this.state.total}
+                                {selectedCurr}{total}
                             </div>
                             <div className="cart_bottom">
                                 <Link to="/cart">

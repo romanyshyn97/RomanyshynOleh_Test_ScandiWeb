@@ -1,21 +1,24 @@
+.bag-page{
+    margin-bottom: 100px;
 
-.back{
-    margin: 0 auto;
-    text-align: center;
-    padding-left: 35%;
-    text-decoration: none;
-    color: black;
-    font-size: 22px;
-    &:hover{
-        color: #5ECE7B;
+    .back{
+        margin: 0 auto;
+        text-align: center;
+        padding-left: 35%;
+        text-decoration: none;
+        color: black;
+        font-size: 22px;
+        &:hover{
+            color: #5ECE7B;
+        }
     }
-}
-.summary{
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 200px;
-    h3,h4{
-        margin: 0;
+    .summary{
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 200px;
+        h3,h4{
+            margin: 0;
+        }
     }
 }

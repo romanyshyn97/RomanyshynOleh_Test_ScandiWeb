@@ -1,4 +1,3 @@
-
 import React from "react";
 import { PureComponent } from "react";
 import { BrowserRouter as Router, Route, Routes  } from "react-router-dom";
@@ -7,7 +6,7 @@ import AppHeader from '../appHeader/AppHeader';
 import ProductList from "../productsList/ProductList";
 import ViewBag from "../viewBag/ViewBag";
 import SingleProduct from "../singleProduct.js/SingleProduct";
-import './app.css'
+import './App.css'
 
 class App extends PureComponent {
     constructor(props){
@@ -30,7 +29,7 @@ class App extends PureComponent {
           <AppHeader onFilterSelected={this.onFilterSelected} filter={this.state.filter}/>
             <main>
               <Routes>
-                <Route path="/:ad" element={<ProductList filter={this.state.filter}/>} />
+                <Route path="/" element={<ProductList filter={this.state.filter}/>} />
                 <Route path="/cart" element={<ViewBag/>} />
                 <Route path="/:category/:id" element={<SingleProduct />}/>
               </Routes>

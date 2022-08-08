@@ -1,8 +1,4 @@
 import * as actionTypes from './types';
-import Service from '../../service/Service';
-
-
-const dataService = new Service();
 
 export const addToCart = (itemID, attr) => {
     return{

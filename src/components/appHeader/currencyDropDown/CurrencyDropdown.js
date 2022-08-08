@@ -4,10 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import up from '../../../resources/arrowUp.svg';
 import down from '../../../resources/arrowDown.svg';
-import './currencyDropdown.scss'
+import './CurrencyDropdown.scss'
 import OutsideAlerter from "./OutsideClick";
-
-import Service from "../../../service/Service";
 
 import { fetchCurrencies, changeCurrency } from "../../../redux/Shopping/actions";
 import { connect } from "react-redux";
