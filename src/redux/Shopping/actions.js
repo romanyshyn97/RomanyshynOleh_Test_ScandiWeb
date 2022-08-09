@@ -10,6 +10,12 @@ export const addToCart = (itemID, attr) => {
     }
 }
 
+export const makeOrder = () => {
+  return {
+    type: actionTypes.MAKE_ORDER
+  }
+}
+
 // export const removeFromCart = (itemID) => {
 //     return {
 //         type: actionTypes.REMOVE_FROM_CART,
@@ -19,21 +25,23 @@ export const addToCart = (itemID, attr) => {
 //     }
 // }
 
-export const increaseQTY = (itemID, value) => {
+export const increaseQTY = (itemID, value, atrname) => {
     return {
         type: actionTypes.INCREASE_QTY,
         payload:{
             id: itemID,
             qty: value,
+            atrExist: atrname
         }
     }
 }
-export const decreaseQTY = (itemID, value) => {
+export const decreaseQTY = (itemID, value, atrname) => {
   return {
       type: actionTypes.DECREASE_QTY,
       payload:{
           id: itemID,
           qty: value,
+          atrExist: atrname
       }
   }
 }
@@ -57,6 +65,7 @@ export const changeCurrency = (currency) => {
     payload: currency
   }
 }
+
 export const selectAttr = (attr) => {
   return{
     type: actionTypes.SELECT_ATTRIBUTE,

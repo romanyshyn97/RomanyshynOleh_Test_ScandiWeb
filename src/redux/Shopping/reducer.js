@@ -9,8 +9,11 @@ const INITIAL_STATE = {
     currentItem: null,
     selectedCurr: '$',
     
-    
-    
+}
+if (localStorage.getItem('cart')) {
+	INITIAL_STATE.cart = JSON.parse(localStorage.getItem('cart'));
+} else {
+	INITIAL_STATE.cart = [];
 }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
@@ -49,20 +52,20 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 selectedCurr: action.payload
             }
         case actionTypes.ADD_TO_CART:
-            const item = state.items.category.products.find(prod => prod.id === action.payload.id);
-            const inCart = state.cart.find(item => item.id === action.payload.id ? true: false);
-            const inAttr = state.cart.find(item => item.atr === action.payload.attr ? true: false); 
+            const itemExist = state.items.category.products.find(prod => prod.id === action.payload.id);
+            const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === action.payload.attr) ? true: false);
             
             
             return {
                 ...state,
-                cart: inCart 
+                cart: inCartSame 
                     ? state.cart.map(item => 
                     (item.id === action.payload.id && item.atr === action.payload.attr)
                         ? {...item, qty: item.qty + 1} 
                         : item) 
                             
-                    : [...state.cart, {...item, qty: 1, atr: action.payload.attr }]
+                    : [...state.cart, {...itemExist, qty: 1, atr: action.payload.attr }],
+
                             
                 
 
@@ -84,18 +87,18 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 cart: state.cart.map(item => 
-                    item.id === action.payload.id 
+                    item.id === action.payload.id && item.atr === action.payload.atrExist
                     ? {...item, qty: item.qty + 1} 
                     : item)
             }
         case actionTypes.DECREASE_QTY:
             
-            const toRemove = state.cart.find(item => (item.id === action.payload.id && item.qty > 1) ? true: false);
+            const toRemove = state.cart.find(item => (item.id === action.payload.id && item.atr === action.payload.atrExist && item.qty  > 1) ? true: false);
             return {
                 ...state,
                 cart: toRemove ?
                         state.cart.map(item => 
-                        (item.id === action.payload.id)
+                        (item.id === action.payload.id && item.atr === action.payload.atrExist)
                         ? {...item, qty: item.qty - 1} 
                         : item)
                     : state.cart.filter(item => item.id !== action.payload.id)
@@ -107,6 +110,11 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentItem: action.payload
             } 
+        case actionTypes.MAKE_ORDER:
+            return{
+                ...state,
+                cart: []
+            }
         default:
             return state;   
     }

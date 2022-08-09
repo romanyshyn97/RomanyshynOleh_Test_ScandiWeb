@@ -45,9 +45,9 @@ class BagItems extends PureComponent{
                         </div>
                         <div className="cart-item__right">
                             <div className="cart-item__right_counter">
-                                <img src={plus} alt="plus" onClick={() => onIncrease(id,qty)}/>
+                                <img src={plus} alt="plus" onClick={() => onIncrease(id,qty,atr)}/>
                                     <span>{qty}</span>
-                                <img src={minus} alt="minus" onClick={() => onDecrease(id,qty)}/>
+                                <img src={minus} alt="minus" onClick={() => onDecrease(id,qty,atr)}/>
                                 {/* <div className="btn-cart_counter" onClick={() => this.props.onIncrease(id,qty)} >+</div>  
                                 
                                 <div className="btn-cart_counter" onClick={() => this.props.onDecrease(id,qty)}>-</div> */}
@@ -71,8 +71,8 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        onIncrease: (id,qty) => dispatch(increaseQTY(id,qty)),
-        onDecrease: (id,qty) => dispatch(decreaseQTY(id,qty))
+        onIncrease: (id,qty,attrExist) => dispatch(increaseQTY(id,qty,attrExist)),
+        onDecrease: (id,qty,attrExist) => dispatch(decreaseQTY(id,qty,attrExist))
     }
   }
 

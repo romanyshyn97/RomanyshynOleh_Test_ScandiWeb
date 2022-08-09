@@ -7,6 +7,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import {Link} from 'react-router-dom';
 import OutsideAlerter from "../currencyDropDown/OutsideClick";
 
+import { makeOrder } from "../../../redux/Shopping/actions";
+
 class Cart extends PureComponent{
     constructor(props){
         super(props);
@@ -60,7 +62,9 @@ class Cart extends PureComponent{
                                     <button className="cart_bottom_btn">VIEW BAG</button>
                                 </Link>
                                 
-                                <button className="cart_bottom_btn">CHECK OUT</button> 
+                                <button
+                                    onClick={() => this.props.onMakeOrder()} 
+                                    className="cart_bottom_btn">CHECK OUT</button> 
                             </div>
                         </>
                     }                                      
@@ -84,5 +88,11 @@ const mapStateToProps = state =>{
         selectedCurr: state.shop.selectedCurr
     }
 }
+const mapDispatchToProps = dispatch => {
+    return{
+        onMakeOrder: () => dispatch(makeOrder()),
+       
+    }
+}
 
-export default connect(mapStateToProps)(Cart) ;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart) ;
