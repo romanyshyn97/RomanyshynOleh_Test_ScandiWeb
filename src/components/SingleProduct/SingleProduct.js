@@ -170,8 +170,9 @@ class SingleProduct extends PureComponent{
                     className="single-product__info_add">ADD TO CART</button>
                     }
                     
-                    <div className="single-product__info_descr">
-                        {description.replace(/<\/?[a-z][a-z0-9]*>/gi, '')}
+                    <div className="single-product__info_descr" dangerouslySetInnerHTML={{__html: description}}>
+                        {/* {description.replace(/<\/?[a-z][a-z0-9]*>/gi, '')} */}
+                        
                     </div>
                 </div>
             </div>
