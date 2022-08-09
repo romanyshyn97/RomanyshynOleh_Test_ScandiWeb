@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-import BagItems from "./bagItems.js/BagItem";
+import BagItems from "./BagItem/BagItem";
 
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';

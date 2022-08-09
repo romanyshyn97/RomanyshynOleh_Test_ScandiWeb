@@ -1,7 +1,7 @@
 import { PureComponent } from "react";
 
-import Dropdown from "./currencyDropDown/CurrencyDropdown";
-import Cart from "./cart/Cart";
+import Dropdown from "./CurrencyDropDown/CurrencyDropdown";
+import Cart from "./Cart/Cart";
 import cart from '../../resources/cart.svg';
 import logo from '../../resources/logo.svg';
 import './AppHeader.scss'

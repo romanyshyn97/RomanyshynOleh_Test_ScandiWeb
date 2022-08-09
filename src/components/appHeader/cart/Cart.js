@@ -1,11 +1,11 @@
 import { PureComponent } from "react";
 import product from '../../../resources/product.png'
 import './Cart.scss'
-import CartItem from "./cartItem/CartItem";
+import CartItem from "./CartItem/CartItem";
 import {connect} from 'react-redux';
 import { Scrollbars } from 'react-custom-scrollbars';
 import {Link} from 'react-router-dom';
-import OutsideAlerter from "../currencyDropDown/OutsideClick";
+import OutsideAlerter from "../CurrencyDropDown/OutsideClick";
 
 import { makeOrder } from "../../../redux/Shopping/actions";
 

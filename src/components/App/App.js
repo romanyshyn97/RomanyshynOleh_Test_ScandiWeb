@@ -2,10 +2,10 @@ import React from "react";
 import { PureComponent } from "react";
 import { BrowserRouter as Router, Route, Routes  } from "react-router-dom";
 
-import AppHeader from '../appHeader/AppHeader';
-import ProductList from "../productsList/ProductList";
-import ViewBag from "../viewBag/ViewBag";
-import SingleProduct from "../singleProduct.js/SingleProduct";
+import AppHeader from '../AppHeader/AppHeader';
+import ProductList from "../ProductsList/ProductList";
+import ViewBag from "../ViewBag/ViewBag";
+import SingleProduct from "../SingleProduct/SingleProduct";
 import './App.css'
 
 class App extends PureComponent {

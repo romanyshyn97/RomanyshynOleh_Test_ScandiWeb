@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-import SingleItem from "./singleItem/SingleItem";
+import SingleItem from "./SingleItem/SingleItem";
 import './ProductList.scss'
 import {connect} from 'react-redux';
 
