@@ -12,30 +12,31 @@ import { makeOrder } from "../../../redux/Shopping/actions";
 class Cart extends PureComponent{
     constructor(props){
         super(props);
-        this.state = {
-            total: 0,
-            cartCount: 0
-        }
+        // this.state = {
+        //     total: 0,
+        //     cartCount: 0,
+        // }
         
    }
-   componentDidUpdate(){
-    let price = 0;
-    let count = 0;
-    const {cart} = this.props;
-    cart.forEach(item => {
-        price += item.qty * item.prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount));
-        count += item.qty;
-    })
-    this.setState({
-        total:price.toFixed(2),
-        cartCount: count
-    })
-   }
+//    componentDidUpdate(){
+//     let price = 0;
+//     let count = 0;
+//     const {cart} = this.props;
+//     cart.forEach(item => {
+//         price += item.qty * item.prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount));
+//         count += item.qty;
+//     })
+//     const cartStorage = JSON.parse(localStorage.getItem('cart'));
+//     this.setState({
+//         total:price.toFixed(2),
+//         cartCount: count
+//     })
+//    }
 
     render(){
-        const {cart, selectedCurr} = this.props;
-        const {countCart} = this.props;
-        const {total, cartCount} = this.state;
+        const {cart, selectedCurr, totalPRICE, totalQTY} = this.props;
+        // const {countCart} = this.props;
+        // const {total, cartCount} = this.state;
 
         
             return(
@@ -47,7 +48,7 @@ class Cart extends PureComponent{
                     {cart.length === 0 && <><div>YOUR SHOPPING CART IS EMPTY</div></>}
                     {cart.length > 0 && 
                         <> 
-                            <h3>My bag, <span>{cartCount} items</span></h3>
+                            <h3>My bag, <span>{totalQTY} items</span></h3>
                                 <Scrollbars style={{ width: 330, height: 440 }}>
                                     {cart.map(item => (
                                         <CartItem key={item.id} itemData={item} curr={selectedCurr} />                                                                              
@@ -55,7 +56,7 @@ class Cart extends PureComponent{
                                 </Scrollbars>
                             <div className="totalPrice">
                                 <p>Total</p>
-                                {selectedCurr}{total}
+                                {selectedCurr}{totalPRICE}
                             </div>
                             <div className="cart_bottom">
                                 <Link to="/cart">
@@ -85,7 +86,9 @@ class Cart extends PureComponent{
 const mapStateToProps = state =>{
     return{
         cart: state.shop.cart,
-        selectedCurr: state.shop.selectedCurr
+        selectedCurr: state.shop.selectedCurr,
+        totalQTY: state.shop.totalQTY,
+        totalPRICE: state.shop.totalPRICE
     }
 }
 const mapDispatchToProps = dispatch => {

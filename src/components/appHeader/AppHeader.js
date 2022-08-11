@@ -16,7 +16,7 @@ class AppHeader extends PureComponent{
         super(props);
         this.state = {
             isOpen: false,
-            cartCount: 0,
+            // cartCount: 0,
             
 
         }
@@ -24,19 +24,19 @@ class AppHeader extends PureComponent{
 
    }
 
-   componentDidUpdate(){
-    let count = 0;
-        const {cart} = this.props;
-        cart.forEach(item => {
-            count += item.qty;
-        })
-        this.setState({
-            cartCount:count
-        })
+//    componentDidUpdate(){
+//     let count = 0;
+//         const {cart} = this.props;
+//         cart.forEach(item => {
+//             count += item.qty;
+//         })
+//         this.setState({
+//             cartCount:count
+//         })
         
        
         
-   }
+//    }
 
    onToggle = () => {
     this.setState({
@@ -84,7 +84,7 @@ class AppHeader extends PureComponent{
                     <Dropdown />
                     <div onClick={this.onToggle} className='cart_icon'>
                         <img src={cart} alt="" />
-                        <div className="circle"><p>{this.state.cartCount}</p></div>
+                        <div className="circle"><p>{this.props.totalQTY}</p></div>
                     </div>
                     <div className={clazz}>
                         <Cart countCart={this.state.cartCount} close={this.onToggle} isOpen={this.state.isOpen}/>
@@ -98,7 +98,8 @@ class AppHeader extends PureComponent{
 
 const mapStateToProps = state => {
     return {
-        cart: state.shop.cart
+        cart: state.shop.cart,
+        totalQTY: state.shop.totalQTY
     }
 }
 

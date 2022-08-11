@@ -8,6 +8,13 @@ export const addToCart = (itemID, attr) => {
             attr
         }
     }
+  
+}
+
+export const totalQTY = () => {
+  return{
+    type:actionTypes.TOTAL_QTY
+  }
 }
 
 export const makeOrder = () => {
