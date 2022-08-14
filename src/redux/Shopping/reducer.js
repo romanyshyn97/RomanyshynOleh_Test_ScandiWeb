@@ -11,8 +11,8 @@ const INITIAL_STATE = {
     cart: cartStorage ? cartStorage.shop.cart : [],
     currentItem: null,
     selectedCurr: '$',
-    totalQTY: cartStorage ? cartStorage.shop.totalQTY : 0,
-    totalPRICE: cartStorage ? cartStorage.shop.totalPRICE : 0
+    totalQTY: cartStorage ,
+    totalPRICE: cartStorage 
     
 }
 // if (localStorage.getItem('cart')) {
@@ -22,12 +22,23 @@ const INITIAL_STATE = {
 // }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
-    let price = 0;
-    let count = 0;
-    state.cart.forEach(item => {
-        price += item.qty * item.prices.filter(item => item.currency.symbol === state.selectedCurr).map(filtered => (filtered.amount));
-        count += item.qty;
-    })
+    // let price = 0;                                   ////// 2 функції які вертають кількість та тотал
+    // let count = 0;
+    // const countQTY = (existCart) => {
+    //     existCart.forEach(item => {
+    //         count += item.qty;
+    //     })
+    //    return count;
+    // }
+    // const countPRICE = (existCart) => {
+    //     existCart.forEach(item => {
+    //         price += item.qty * item.prices.filter(item => item.currency.symbol === state.selectedCurr).map(filtered => (filtered.amount));
+    //     })
+    //    return price;
+    // }
+    
+    
+    
     switch(action.type){
         case actionTypes.FETCH_PRODUCTS_BEGIN:
             return {
@@ -66,7 +77,6 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             const itemExist = state.items.category.products.find(prod => prod.id === action.payload.id);
             const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === action.payload.attr) ? true: false);
             
-            
             return {
                 ...state,
                 cart: inCartSame 
@@ -76,8 +86,8 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                         : item) 
                             
                     : [...state.cart, {...itemExist, qty: 1, atr: action.payload.attr }],
-                totalQTY: count,
-                totalPRICE: price
+                // totalQTY: countQTY(state.cart),
+                // totalPRICE: countPRICE(state.cart) /////////// викликаю з необхідним кошиком
 
                         
                 
@@ -97,14 +107,15 @@ const shopReducer = (state = INITIAL_STATE, action) => {
 
 
         case actionTypes.INCREASE_QTY:
+            
             return {
                 ...state,
                 cart: state.cart.map(item => 
                     item.id === action.payload.id && item.atr === action.payload.atrExist
                     ? {...item, qty: item.qty + 1} 
                     : item),
-                totalQTY: count,
-                totalPRICE: price
+                totalQTY: 0,
+                totalPRICE: 0
             }
         case actionTypes.DECREASE_QTY:
             
@@ -117,8 +128,8 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                         ? {...item, qty: item.qty - 1} 
                         : item)
                     : state.cart.filter(item => item.id !== action.payload.id),
-                totalQTY: count,
-                totalPRICE: price
+                totalQTY: 0,
+                totalPRICE: 0
             }
        
         
