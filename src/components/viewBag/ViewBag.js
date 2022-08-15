@@ -1,24 +1,13 @@
 import { PureComponent } from "react";
 import BagItems from "./BagItem/BagItem";
-
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import './ViewBag.scss';
+
 class ViewBag extends PureComponent{
-    constructor(props){
-        super(props);
-        
-        
-   }
-   
-   
-        
-        
 
     render(){
         const {cart, selectedCurr, totalPRICE, totalQTY} = this.props;
-       
-
         return(
             <div className="bag-page">
                 <h1>CART</h1>
@@ -28,24 +17,19 @@ class ViewBag extends PureComponent{
                     {cart.map(item => (
                     <div>
                         <BagItems key={item.id} itemData={item} curr={selectedCurr} />
-                        
                     </div>                                                                            
                 ))}
-                        <div className="summary">
-                            <h4>Tax 21% : </h4>
-                            <h3>{selectedCurr}{' '}{((totalPRICE) * 0.21).toFixed(2)}</h3>
-                            <h4>Quantity: </h4>
-                            <h3>{totalQTY}</h3>
-                            <h4>Total:</h4>
-                            <h3> {selectedCurr}{' '}{totalPRICE.toFixed(2)}</h3>
-                        </div>
-                        </div>
+                    <div className="summary">
+                        <h4>Tax 21% : </h4>
+                        <h3>{selectedCurr}{' '}{((totalPRICE) * 0.21).toFixed(2)}</h3>
+                        <h4>Quantity: </h4>
+                        <h3>{totalQTY}</h3>
+                        <h4>Total:</h4>
+                        <h3> {selectedCurr}{' '}{totalPRICE.toFixed(2)}</h3>
+                    </div>
+                </div>
                 }
-                
-                
-                
             </div>
-
         )
     }
 }

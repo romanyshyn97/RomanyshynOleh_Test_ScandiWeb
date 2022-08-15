@@ -6,27 +6,20 @@ import {connect} from 'react-redux';
 import { fetchProducts } from "../../redux/Shopping/actions";
 
 class ProductList extends PureComponent{
-
-    
     componentDidMount(){
         this.props.onFetchData(this.props.filter)
-        // .then(res => console.log(res))
-        
-            
     }
     componentDidUpdate(prevProps){
         if(prevProps.filter !== this.props.filter){
             this.props.onFetchData(this.props.filter)
         }
     }
-
     render(){
         const {items, loading, error} = this.props;
         const {products} = items.category ? items.category : [];
         if(!products){
             return <></>
         } 
-        // console.log(items)
         return(
             <div>
                 <h1>{items.category.name.toUpperCase()}</h1>
@@ -41,7 +34,6 @@ class ProductList extends PureComponent{
                     ))} 
                 </div>   
             </div>
-            
         )
     }
 }

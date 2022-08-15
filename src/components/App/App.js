@@ -33,8 +33,6 @@ class App extends PureComponent {
                 <Route path="/cart" element={<ViewBag/>} />
                 <Route path="/:category/:id" element={<SingleProduct />}/>
               </Routes>
-              
-            
             </main>
           
         </div>

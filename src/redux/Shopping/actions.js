@@ -80,19 +80,6 @@ export const selectAttr = (attr) => {
   }
 }
 
-// export const fetchData = () => {
-//     return async (dispatch) => {
-//         return await dataService.categoryRequest()
-//             .then(json => dispatch(
-//                 {type: actionTypes.FETCH_DATA, data: json}
-//             ))
-//             .then(res => res.data.data)
-//             .catch(err => dispatch(
-//                 {type: actionTypes.ERROR, msg: "ERROR"}
-//             ))
-//     }
-// }
-
 export const fetchProductsBegin = () => ({
     type: actionTypes.FETCH_PRODUCTS_BEGIN
   });
@@ -199,40 +186,3 @@ export const fetchProductsBegin = () => ({
     }
     return response;
   }
-
-
-
-// export const fetchData = () => {
-//     return async (dispatch) => {
-//     return await fetch('http://localhost:4000/', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           query: ` query category {
-//             category(input:{title:"all"}){
-//                  name,
-//               products{
-//                 id,
-//                 name,
-//                 description,
-//                 gallery,
-//                 prices{
-//                   currency{symbol},
-//                   amount
-//                 }
-//               }
-//             }
-//             }`,
-//         }),
-//         variables: {}
-//       })
-//         .then((res) => res.json())
-//         .then(json => dispatch(
-//             { type: "FetchData", data: json }))
-//         .catch(err => dispatch(
-//             { type: "ERROR",msg: "Unable to fetch data" }))
-//         .then(res => res.data.data)
-// }
-// }

@@ -11,20 +11,17 @@ function saveToLocalStorage(state) {
       console.warn(e);
     }
   }
-
 function loadFromLocalStorage() {
-try {
-    const storageState = localStorage.getItem("cart");
-    if (storageState === null) return undefined;
-    return JSON.parse(storageState);
-} catch (e) {
-    console.warn(e);
-    return undefined;
+    try {
+        const storageState = localStorage.getItem("cart");
+        if (storageState === null) return undefined;
+        return JSON.parse(storageState);
+    } catch (e) {
+        console.warn(e);
+        return undefined;
+    }
 }
-}
-
 const store = createStore(rootReducer, loadFromLocalStorage(), composeWithDevTools(applyMiddleware(thunk)));
 
-// composeWithDevTools(applyMiddleware(...middleware)
 store.subscribe(() => saveToLocalStorage(store.getState()));
 export default store;

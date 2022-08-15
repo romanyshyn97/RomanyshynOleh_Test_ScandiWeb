@@ -1,16 +1,14 @@
 import { PureComponent } from "react";
-
 import {connect} from 'react-redux';
 import {increaseQTY,decreaseQTY} from '../../../redux/Shopping/actions';
 import './BagItem.scss';
 import plus from '../../../resources/plus.svg';
 import minus from '../../../resources/minus.svg';
-class BagItems extends PureComponent{
 
+class BagItems extends PureComponent{
 
     render(){
         const {id,name, prices, qty, gallery, attributes, atr}  = this.props.itemData;
-        
         const attr = attributes[0];
         const {onIncrease, onDecrease} = this.props;
         return(
@@ -48,17 +46,12 @@ class BagItems extends PureComponent{
                                 <img src={plus} alt="plus" onClick={() => onIncrease(id,qty,atr)}/>
                                     <span>{qty}</span>
                                 <img src={minus} alt="minus" onClick={() => onDecrease(id,qty,atr)}/>
-                                {/* <div className="btn-cart_counter" onClick={() => this.props.onIncrease(id,qty)} >+</div>  
-                                
-                                <div className="btn-cart_counter" onClick={() => this.props.onDecrease(id,qty)}>-</div> */}
                             </div>
                             <div className="cart-item__right_image">
                                 <img src={gallery[0]} alt="" />
                             </div>
                         </div>
-                        
                     </div>
-                    
                 </div>
         )
     }

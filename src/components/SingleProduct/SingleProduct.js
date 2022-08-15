@@ -15,11 +15,7 @@ class SingleProduct extends PureComponent{
             currentIndex: null,
             attribute: null
         }
-        
-        
     }
-
-    
     handleClick = (item, index) => {
         this.setState({
             clicked: item,
@@ -53,7 +49,6 @@ class SingleProduct extends PureComponent{
         
         
       };
-    
     handelRotationLeft = () => {
         const data = this.props.current.gallery;
         const totalLength = data.length;
@@ -78,22 +73,16 @@ class SingleProduct extends PureComponent{
         })
       };
     onSelectedAttr = (attr) => {
-        
         this.setState({
             attribute: attr
         })
         
     }
-   
-
     render(){
         const {id,name,brand,inStock,description, gallery, prices, attributes} = this.props.current;
-        
-        // const {items} = attributes[0];
         const attr = attributes[0];
         const {attribute} = this.state;
         return(
-            
             <div className="single-product">
                 <div className="single-product__image">
                 <Scrollbars style={{ width: 120, height: 440 }}>
@@ -112,10 +101,8 @@ class SingleProduct extends PureComponent{
                         <div >
                             <img src={this.state.clicked} alt="" />
                             {this.props.current.gallery.length > 1 && (<><div className="click" onClick={this.handelRotationLeft}><img className="arrow-prev" src={prev} alt="" /></div>
-                            <div onClick={this.handelRotationRight}><img className="arrow-next" src={next} alt="" /></div></> ) }
-                            
-                        </div>
-                        
+                            <div onClick={this.handelRotationRight}><img className="arrow-next" src={next} alt="" /></div></> ) }        
+                        </div>    
                     )}
                     </div>
                 </div>
@@ -123,8 +110,7 @@ class SingleProduct extends PureComponent{
                     <h1 style={{'fontSize': '30px', 'fontWeight':'600', 'paddingBottom': '20px'}}>{brand}{' '}{name}</h1>
                     {attr ? 
                     <div><h2>{attr.name}</h2> 
-                    <div className="single-product__info_attr">
-                        
+                    <div className="single-product__info_attr">     
                         {attr.name === 'Size' && attr.items.map((item, i) => {
                             const active = attribute === item.value;
                             const clazz = active ? 'attr-active' : 'attr-non';

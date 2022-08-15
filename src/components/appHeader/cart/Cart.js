@@ -10,38 +10,11 @@ import OutsideAlerter from "../CurrencyDropDown/OutsideClick";
 import { makeOrder } from "../../../redux/Shopping/actions";
 
 class Cart extends PureComponent{
-    constructor(props){
-        super(props);
-        // this.state = {
-        //     total: 0,
-        //     cartCount: 0,
-        // }
-        
-   }
-//    componentDidUpdate(){
-//     let price = 0;
-//     let count = 0;
-//     const {cart} = this.props;
-//     cart.forEach(item => {
-//         price += item.qty * item.prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount));
-//         count += item.qty;
-//     })
-//     const cartStorage = JSON.parse(localStorage.getItem('cart'));
-//     this.setState({
-//         total:price.toFixed(2),
-//         cartCount: count
-//     })
-//    }
 
     render(){
         const {cart, selectedCurr, totalPRICE, totalQTY} = this.props;
-        // const {countCart} = this.props;
-        // const {total, cartCount} = this.state;
-
-        
             return(
                 <div>
-                    
                     <div className="cart-overlay">
                         <OutsideAlerter close={this.props.close} isOpen={this.props.isOpen}>
                         <div className="cart_container">
@@ -74,13 +47,8 @@ class Cart extends PureComponent{
                     
                     </div>
                 </div>
-               
-    
             )
-        
         }
-        
-        
 }
 
 const mapStateToProps = state =>{

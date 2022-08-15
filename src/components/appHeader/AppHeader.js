@@ -1,51 +1,26 @@
 import { PureComponent } from "react";
-
 import Dropdown from "./CurrencyDropDown/CurrencyDropdown";
 import Cart from "./Cart/Cart";
 import cart from '../../resources/cart.svg';
 import logo from '../../resources/logo.svg';
 import './AppHeader.scss'
-
 import {connect} from 'react-redux';
 import {Link, NavLink} from "react-router-dom";
-
-
 
 class AppHeader extends PureComponent{
    constructor(props){
         super(props);
         this.state = {
             isOpen: false,
-            // cartCount: 0,
-            
-
         }
-        
-
    }
 
-//    componentDidUpdate(){
-//     let count = 0;
-//         const {cart} = this.props;
-//         cart.forEach(item => {
-//             count += item.qty;
-//         })
-//         this.setState({
-//             cartCount:count
-//         })
-        
-       
-        
-//    }
-
    onToggle = () => {
-    this.setState({
-        isOpen:!this.state.isOpen
-    })
+        this.setState({
+            isOpen:!this.state.isOpen
+        })
+    }
     
-}
-    
-   
     render(){
         const clazz = this.state.isOpen ? 'opened': 'closed';
         const categories = [
