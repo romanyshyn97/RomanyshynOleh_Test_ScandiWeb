@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 import React from "react";
-import './singleItem.scss';
+import './SingleItem.scss';
 import cartIcon from '../../../resources/cart-white.svg'
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
