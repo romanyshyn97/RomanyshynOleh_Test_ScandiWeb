@@ -22,20 +22,20 @@ const INITIAL_STATE = {
 // }
 
 const shopReducer = (state = INITIAL_STATE, action) => {
-    // let price = 0;                                   ////// 2 функції які вертають кількість та тотал
-    // let count = 0;
-    // const countQTY = (existCart) => {
-    //     existCart.forEach(item => {
-    //         count += item.qty;
-    //     })
-    //    return count;
-    // }
-    // const countPRICE = (existCart) => {
-    //     existCart.forEach(item => {
-    //         price += item.qty * item.prices.filter(item => item.currency.symbol === state.selectedCurr).map(filtered => (filtered.amount));
-    //     })
-    //    return price;
-    // }
+    let price = 0;                                   ////// 2 функції які вертають кількість та тотал
+    let count = 0;
+    const countQTY = (existCart) => {
+        existCart.forEach(item => {
+            count += item.qty;
+        })
+       return count;
+    }
+    const countPRICE = (existCart) => {
+        existCart.forEach(item => {
+            price += item.qty * item.prices.filter(item => item.currency.symbol === state.selectedCurr).map(filtered => (filtered.amount));
+        })
+       return price;
+    }
     
     
     
@@ -76,18 +76,19 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.ADD_TO_CART:
             const itemExist = state.items.category.products.find(prod => prod.id === action.payload.id);
             const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === action.payload.attr) ? true: false);
+            const newCart = inCartSame 
+            ? state.cart.map(item => 
+            (item.id === action.payload.id && item.atr === action.payload.attr)
+                ? {...item, qty: item.qty + 1} 
+                : item) 
+                    
+            : [...state.cart, {...itemExist, qty: 1, atr: action.payload.attr }]
             
             return {
                 ...state,
-                cart: inCartSame 
-                    ? state.cart.map(item => 
-                    (item.id === action.payload.id && item.atr === action.payload.attr)
-                        ? {...item, qty: item.qty + 1} 
-                        : item) 
-                            
-                    : [...state.cart, {...itemExist, qty: 1, atr: action.payload.attr }],
-                // totalQTY: countQTY(state.cart),
-                // totalPRICE: countPRICE(state.cart) /////////// викликаю з необхідним кошиком
+                cart: newCart,
+                totalQTY: countQTY(newCart),
+                totalPRICE: countPRICE(newCart)
 
                         
                 
@@ -107,29 +108,30 @@ const shopReducer = (state = INITIAL_STATE, action) => {
 
 
         case actionTypes.INCREASE_QTY:
-            
+            const newCartIncr = state.cart.map(item => 
+                item.id === action.payload.id && item.atr === action.payload.atrExist
+                ? {...item, qty: item.qty + 1} 
+                : item)
             return {
                 ...state,
-                cart: state.cart.map(item => 
-                    item.id === action.payload.id && item.atr === action.payload.atrExist
-                    ? {...item, qty: item.qty + 1} 
-                    : item),
-                totalQTY: 0,
-                totalPRICE: 0
+                cart: newCartIncr,
+                totalQTY: countQTY(newCartIncr),
+                totalPRICE: countPRICE(newCartIncr)
             }
         case actionTypes.DECREASE_QTY:
             
             const toRemove = state.cart.find(item => (item.id === action.payload.id && item.atr === action.payload.atrExist && item.qty  > 1) ? true: false);
+            const newCartDecr = toRemove 
+                ? state.cart.map(item => 
+                    (item.id === action.payload.id && item.atr === action.payload.atrExist)
+                    ? {...item, qty: item.qty - 1} 
+                    : item)
+                : state.cart.filter(item => item.id !== action.payload.id)
             return {
                 ...state,
-                cart: toRemove ?
-                        state.cart.map(item => 
-                        (item.id === action.payload.id && item.atr === action.payload.atrExist)
-                        ? {...item, qty: item.qty - 1} 
-                        : item)
-                    : state.cart.filter(item => item.id !== action.payload.id),
-                totalQTY: 0,
-                totalPRICE: 0
+                cart: newCartDecr,
+                totalQTY: countQTY(newCartDecr),
+                totalPRICE: countPRICE(newCartDecr)
             }
        
         

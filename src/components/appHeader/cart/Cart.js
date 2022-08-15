@@ -56,7 +56,7 @@ class Cart extends PureComponent{
                                 </Scrollbars>
                             <div className="totalPrice">
                                 <p>Total</p>
-                                {selectedCurr}{totalPRICE}
+                                {selectedCurr}{totalPRICE.toFixed(2)}
                             </div>
                             <div className="cart_bottom">
                                 <Link to="/cart">
