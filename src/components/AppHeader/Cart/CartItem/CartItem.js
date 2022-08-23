@@ -5,6 +5,11 @@ import { decreaseQTY, increaseQTY } from "../../../../redux/Shopping/actions";
 import plus from '../../../../resources/plus.svg';
 import minus from '../../../../resources/minus.svg';
 class CartItem extends PureComponent{
+
+    getCartButtonClass(attribute, selectedAttribute){
+        return selectedAttribute === attribute.value ? 'btn-cart-active' : 'btn-cart';
+    }
+
     render(){
         const {id,name,brand, prices, qty, gallery, atr, attributes}  = this.props.itemData;
         const attr = attributes[0];
@@ -22,24 +27,24 @@ class CartItem extends PureComponent{
                                 <p>{attr.name}</p>
                             <div className="sizes">
                                {attr.name === 'Size' && attr.items.map(item => {
-                                    const active = atr === item.value;
-                                    const clazz = active ? 'btn-cart-active' : 'btn-cart';
+                                    // const active = atr === item.value;
+                                    // const clazz = active ? 'btn-cart-active' : 'btn-cart';
                                     return(
-                                        <div className={`btn-cart ${clazz}`} key={item.id} >{item.value}</div>
+                                        <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} >{item.value}</div>
                                     )   
                                })}
                                {attr.name === 'Color' && attr.items.map(item => {
-                                    const active = atr === item.value;
-                                    const clazz = active ? 'btn-cart-border' : 'btn-cart';
+                                    // const active = atr === item.value;
+                                    // const clazz = active ? 'btn-cart-border' : 'btn-cart';
                                         return(
-                                            <div className={`btn-cart ${clazz}`} key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
+                                            <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
                                         )
                                 })}
                                {attr.name === 'Capacity' && attr.items.map(item => {
-                                    const active = atr === item.value;
-                                    const clazz = active ? 'btn-cart-active' : 'btn-cart';
+                                    // const active = atr === item.value;
+                                    // const clazz = active ? 'btn-cart-active' : 'btn-cart';
                                     return(
-                                        <div className={`btn-cart ${clazz}`} key={item.id} style={{width: "50px"}}>{item.value}</div>
+                                        <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} style={{width: "50px"}}>{item.value}</div>
                                     )
                                })}
                                    

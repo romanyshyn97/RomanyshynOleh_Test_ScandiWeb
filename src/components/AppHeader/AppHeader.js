@@ -6,6 +6,7 @@ import logo from '../../resources/logo.svg';
 import './AppHeader.scss'
 import {connect} from 'react-redux';
 import {Link, NavLink} from "react-router-dom";
+import { fetchCategoriesNames } from "../../redux/Shopping/actions";
 
 class AppHeader extends PureComponent{
    constructor(props){
@@ -13,6 +14,10 @@ class AppHeader extends PureComponent{
         this.state = {
             isOpen: false,
         }
+   }
+
+   componentDidMount(){
+        this.props.onFetchLabels()
    }
 
    onToggle = () => {
@@ -23,26 +28,21 @@ class AppHeader extends PureComponent{
     
     render(){
         const clazz = this.state.isOpen ? 'opened': 'closed';
-        const categories = [
-            {category: 'all', label: 'ALL'},
-            {category: 'tech', label: 'TECH'},
-            {category: 'clothes', label: 'CLOTHES'}
-        ];
-        const {onFilterSelected} = this.props;
+        const {categoriesNames, onFilterSelected} = this.props;
         return(
             <header className="app__header">
                 <nav className="app__header__nav">
                     <ul>
-                        {categories.map(({category,label}) => {
-                            const active = this.props.filter === category;
+                        {categoriesNames.map(({name}) => {
+                            const active = this.props.filter === name;
                             const clazz = active ? 'butt-active' : 'butt-non';
                             return(
                                 <Link to="/">
                                 <li 
                                     className={`${clazz}`}
-                                    key={category}
-                                    onClick={() => onFilterSelected(category)}
-                                    >{label}
+                                    key={name}
+                                    onClick={() => onFilterSelected(name)}
+                                    >{name.toUpperCase()}
                                     
                                 </li></Link>
                                 
@@ -74,8 +74,16 @@ class AppHeader extends PureComponent{
 const mapStateToProps = state => {
     return {
         cart: state.shop.cart,
-        totalQTY: state.shop.totalQTY
+        totalQTY: state.shop.totalQTY,
+        categoriesNames: state.shop.categoriesNames
     }
 }
 
-export default connect(mapStateToProps)(AppHeader) ;
+const mapDispatchToProps = (dispatch) => {
+    return{
+        onFetchLabels: () => dispatch(fetchCategoriesNames())
+        
+    }
+  }
+
+export default connect(mapStateToProps,mapDispatchToProps)(AppHeader) ;

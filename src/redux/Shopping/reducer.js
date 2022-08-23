@@ -3,6 +3,7 @@ import * as actionTypes from './types';
 const cartStorage = JSON.parse(localStorage.getItem('cart'));
 
 const INITIAL_STATE = {
+    categoriesNames: [],
     items: [],
     currencies:[],
     loading: false,
@@ -52,6 +53,12 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 loading: false,
                 currencies: action.payload.currencies
             };
+        
+        case actionTypes.FETCH_CATEGORIES_NAMES:
+            return{
+                ...state,
+                categoriesNames: action.payload.names
+            }
         
         case actionTypes.FETCH_PRODUCTS_FAILURE:
             return {

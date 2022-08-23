@@ -107,7 +107,7 @@ class SingleProduct extends PureComponent{
                     </div>
                 </div>
                 <div className="single-product__info">
-                    <h1 style={{'fontSize': '30px', 'fontWeight':'600', 'paddingBottom': '20px'}}>{brand}{' '}{name}</h1>
+                    <h1 >{brand}{' '}{name}</h1>
                     {attr ? 
                     <div><h2>{attr.name}</h2> 
                     <div className="single-product__info_attr">     
