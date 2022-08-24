@@ -149,16 +149,11 @@ class SingleProduct extends PureComponent{
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
                     </div>
                         
-                    {(inStock && attributeSelected !== null ) ?<button 
+                    {((inStock && attributeSelected !== null) || attributes.length === 0 ) ?<button 
                     onClick={() => this.props.addToCart(id,attributeSelected)}
                     className="single-product__info_add">ADD TO CART</button> : <button 
                     disabled
                     className="single-product__info_add">ADD TO CART</button>}
-                    {(attributes === [] && attributeSelected === null) && (
-                        <button 
-                        onClick={() => this.props.addToCart(id)}
-                        className="single-product__info_add">ADD TO CART</button>
-                    ) }
                     <div className="single-product__info_descr">{parse(description)}</div>
                     {/* <div className="single-product__info_descr" dangerouslySetInnerHTML={{__html: description}}>
                         {description.replace(/<\/?[a-z][a-z0-9]*>/gi, '')}
