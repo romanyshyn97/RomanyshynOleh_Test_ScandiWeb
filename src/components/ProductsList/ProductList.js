@@ -2,8 +2,8 @@ import { PureComponent } from "react";
 import SingleItem from "./SingleItem/SingleItem";
 import './ProductList.scss'
 import {connect} from 'react-redux';
-
-import { fetchProducts } from "../../redux/Shopping/actions";
+import AppHeader from "../AppHeader/AppHeader";
+import { fetchProducts, addToCart } from "../../redux/Shopping/actions";
 
 class ProductList extends PureComponent{
     componentDidMount(){
@@ -21,6 +21,7 @@ class ProductList extends PureComponent{
             return <></>
         } 
         return(
+            
             <div>
                 <h1>{items.category.name.toUpperCase()}</h1>
                 <div className="grid">               
@@ -54,5 +55,6 @@ const mapStateToProps = state => ({
 // }
 
 export default connect(mapStateToProps, {
-    onFetchData: (name) => fetchProducts(name)
+    onFetchData: (name) => fetchProducts(name),
+    addToCart: (id) => addToCart(id)
 })(ProductList);

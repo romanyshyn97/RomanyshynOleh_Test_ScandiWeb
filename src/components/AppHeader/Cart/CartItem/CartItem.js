@@ -7,6 +7,9 @@ import minus from '../../../../resources/minus.svg';
 class CartItem extends PureComponent{
 
     getCartButtonClass(attribute, selectedAttribute){
+        if(selectedAttribute === null){
+            return 
+        }
         return selectedAttribute === attribute.value ? 'btn-cart-active' : 'btn-cart';
     }
 

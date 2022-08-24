@@ -6,6 +6,7 @@ export const GET_CATEGORY = ` query category($category: String!) {
         id,
         name,
         brand,
+        category,
         inStock,
         description,
         gallery,

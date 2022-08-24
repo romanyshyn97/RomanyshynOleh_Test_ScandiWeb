@@ -37,7 +37,7 @@ class AppHeader extends PureComponent{
                             const active = this.props.filter === name;
                             const clazz = active ? 'butt-active' : 'butt-non';
                             return(
-                                <Link to="/">
+                                <Link to={`/${name}`}>
                                 <li 
                                     className={`${clazz}`}
                                     key={name}

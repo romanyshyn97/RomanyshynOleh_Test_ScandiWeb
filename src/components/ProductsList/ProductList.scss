@@ -11,28 +11,34 @@ main{
 
 }
 .single-item{
-    &_cartIcon{
-        display: block;
-        background-color: #5ECE7B;
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        bottom: 50px;
-        left: 300px;
-        cursor: pointer;
-        
-        img{
+    &:hover{
+        .single-item_cartIcon{
+            display: block;
+            background-color: #5ECE7B;
             position: absolute;
-            left: 12px;
-            top: 15px;
-            width: 30px;
-            height: 30px;
-            color: wheat;
-            
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            bottom: 50px;
+            left: 300px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            img{
+                position: absolute;
+                left: 12px;
+                top: 15px;
+                width: 30px;
+                height: 30px;
+                color: wheat;
+                
+            }
+            &:hover{
+                transition: transform 0.5s;
+                transform: scale(1.1);
+            }
+       
+        
         }
-    &_cartIcon-non{
-        display: none;
     }
-    }
+    
 }

@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-
+import parse from 'html-react-parser';
 import { connect } from "react-redux";
 import {addToCart} from '../../redux/Shopping/actions';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -13,7 +13,7 @@ class SingleProduct extends PureComponent{
         this.state = {
             clicked: props.current.gallery[0],
             currentIndex: null,
-            attribute: null
+            attributeSelected: null
         }
     }
     handleClick = (item, index) => {
@@ -74,14 +74,14 @@ class SingleProduct extends PureComponent{
       };
     onSelectedAttr = (attr) => {
         this.setState({
-            attribute: attr
+            attributeSelected: attr
         })
         
     }
     render(){
         const {id,name,brand,inStock,description, gallery, prices, attributes} = this.props.current;
         const attr = attributes[0];
-        const {attribute} = this.state;
+        const {attributeSelected} = this.state;
         return(
             <div className="single-product">
                 <div className="single-product__image">
@@ -112,7 +112,7 @@ class SingleProduct extends PureComponent{
                     <div><h2>{attr.name}</h2> 
                     <div className="single-product__info_attr">     
                         {attr.name === 'Size' && attr.items.map((item, i) => {
-                            const active = attribute === item.value;
+                            const active = attributeSelected === item.value;
                             const clazz = active ? 'attr-active' : 'attr-non';
                             return(
                                 <div
@@ -129,7 +129,7 @@ class SingleProduct extends PureComponent{
                                 className="btn-cart" key={i} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
                         ))}
                         {attr.name === 'Capacity' && attr.items.map((item, i) => {
-                            const active = attribute === item.value;
+                            const active = attributeSelected === item.value;
                             const clazz = active ? 'attr-active' : 'attr-non';
                             return(
                                 <div 
@@ -149,17 +149,20 @@ class SingleProduct extends PureComponent{
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
                     </div>
                         
-                    {inStock ?<button 
-                    onClick={() => this.props.addToCart(id,this.state.attribute)}
+                    {(inStock && attributeSelected !== null ) ?<button 
+                    onClick={() => this.props.addToCart(id,attributeSelected)}
                     className="single-product__info_add">ADD TO CART</button> : <button 
                     disabled
-                    className="single-product__info_add">ADD TO CART</button>
-                    }
-                    
-                    <div className="single-product__info_descr" dangerouslySetInnerHTML={{__html: description}}>
-                        {/* {description.replace(/<\/?[a-z][a-z0-9]*>/gi, '')} */}
-                        
-                    </div>
+                    className="single-product__info_add">ADD TO CART</button>}
+                    {(attributes === [] && attributeSelected === null) && (
+                        <button 
+                        onClick={() => this.props.addToCart(id)}
+                        className="single-product__info_add">ADD TO CART</button>
+                    ) }
+                    <div className="single-product__info_descr">{parse(description)}</div>
+                    {/* <div className="single-product__info_descr" dangerouslySetInnerHTML={{__html: description}}>
+                        {description.replace(/<\/?[a-z][a-z0-9]*>/gi, '')}
+                    </div> */}
                 </div>
             </div>
         )

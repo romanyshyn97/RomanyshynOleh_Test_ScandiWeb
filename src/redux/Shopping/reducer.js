@@ -130,7 +130,9 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.MAKE_ORDER:
             return{
                 ...state,
-                cart: []
+                cart: [],
+                totalQTY: 0
+                
             }
         default:
             return state;   

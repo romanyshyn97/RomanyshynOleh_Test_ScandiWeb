@@ -4,17 +4,17 @@ import './SingleItem.scss';
 import cartIcon from '../../../resources/cart-white.svg'
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
-import { loadCurrentItem } from "../../../redux/Shopping/actions";
+import { loadCurrentItem , addToCart} from "../../../redux/Shopping/actions";
 
 class SingleItem extends PureComponent{
     render(){
-        const {id,name, inStock,gallery, prices, brand} = this.props.productData;
+        const {id,name, inStock,gallery, prices, brand, category} = this.props.productData;
         const {cart} = this.props;
         return(
             <div className="single-item" key={id}>
                 {inStock && 
                 <div >
-                <Link to={`/${this.props.filter}/${id}`}
+                <Link to={`/${category}/${id}`}
                     onClick={() => this.props.loadCurrentItem(this.props.productData)}
                     className="single-item_image">
                     <img src={gallery[0]} alt={name} />
@@ -27,24 +27,20 @@ class SingleItem extends PureComponent{
                     <div>
                         {this.props.selectedCurr}
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
-                    </div> 
-                    {cart.map(card => {
-                            const active = id === card.id;
-                            const clazz = active ? 'single-item_cartIcon' : 'single-item_cartIcon-non';
-                            return(
-                                <div className={`${clazz}`}>
-                                    <img src={cartIcon} alt="cart" />
-                                </div>
-                            )
-                        }
-                    )}                                                                                      
+                    </div>  
+                    <div
+                        onClick={() => this.props.addToCart(id)} 
+                        className='single-item_cartIcon'>
+                        <img src={cartIcon} alt="cart" />
+                    </div>
+                                                                                                               
                 </div>
             </div>
         }
         {!inStock && 
                 <div className="inStock" >
                     <h1>OUT OF STOCK</h1>
-                <Link to={`/${this.props.filter}/${id}`}
+                <Link to={`/${category}/${id}`}
                     onClick={() => this.props.loadCurrentItem(this.props.productData)}
                     className="single-item_image">
                     <img src={gallery[0]} alt={name} />
@@ -77,6 +73,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
+        addToCart: (id) => dispatch(addToCart(id))
     }
 }
 

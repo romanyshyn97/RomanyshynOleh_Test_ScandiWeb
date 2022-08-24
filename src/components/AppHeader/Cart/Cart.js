@@ -22,18 +22,20 @@ class Cart extends PureComponent{
                     {cart.length > 0 && 
                         <> 
                             <h3>My bag, <span>{totalQTY} items</span></h3>
-                                <Scrollbars style={{ width: 330, height: 440 }}>
+                                
                                     {cart.map(item => (
                                         <CartItem key={item.id} itemData={item} curr={selectedCurr} />                                                                              
                                     ))}
-                                </Scrollbars>
+                                
                             <div className="totalPrice">
                                 <p>Total</p>
                                 {selectedCurr}{totalPRICE.toFixed(2)}
                             </div>
                             <div className="cart_bottom">
                                 <Link to="/cart">
-                                    <button className="cart_bottom_btn">VIEW BAG</button>
+                                    <button 
+                                        onClick={this.props.close}
+                                        className="cart_bottom_btn">VIEW BAG</button>
                                 </Link>
                                 
                                 <button

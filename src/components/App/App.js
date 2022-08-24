@@ -26,14 +26,15 @@ class App extends PureComponent {
     return (
       <Router>
         <div className='app'>
-          <AppHeader onFilterSelected={this.onFilterSelected} filter={this.state.filter}/>
+        <AppHeader onFilterSelected={this.onFilterSelected} filter={this.state.filter}/>
             <main>
-              <Routes>
-                <Route path="/" element={<ProductList filter={this.state.filter}/>} />
+            <Routes>
+                <Route path="/:name" element={<ProductList filter={this.state.filter}/>} />
                 <Route path="/cart" element={<ViewBag/>} />
                 <Route path="/:category/:id" element={<SingleProduct />}/>
               </Routes>
             </main>
+          
           
         </div>
       </Router>
