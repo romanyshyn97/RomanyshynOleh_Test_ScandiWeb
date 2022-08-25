@@ -29,7 +29,7 @@ class SingleItem extends PureComponent{
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
                     </div>  
                     <div
-                        onClick={() => this.props.addToCart(id)} 
+                        onClick={() => {this.props.loadCurrentItem(this.props.productData);this.props.addToCart(id) }} 
                         className='single-item_cartIcon'>
                         <img src={cartIcon} alt="cart" />
                     </div>
