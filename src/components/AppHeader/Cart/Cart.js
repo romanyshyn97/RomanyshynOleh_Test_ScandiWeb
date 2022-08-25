@@ -10,7 +10,15 @@ import OutsideAlerter from "../CurrencyDropDown/OutsideClick";
 import { makeOrder } from "../../../redux/Shopping/actions";
 
 class Cart extends PureComponent{
-
+    componentDidUpdate(){
+        if(this.props.isOpen){
+            document.body.style.overflow = "hidden";
+        }else{
+            document.body.style.overflow = "scroll"
+        }
+        
+    }
+    
     render(){
         const {cart, selectedCurr, totalPRICE, totalQTY} = this.props;
             return(

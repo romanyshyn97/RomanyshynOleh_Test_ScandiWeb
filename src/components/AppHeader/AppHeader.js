@@ -8,6 +8,11 @@ import {connect} from 'react-redux';
 import {Link, NavLink} from "react-router-dom";
 import { fetchCategoriesNames } from "../../redux/Shopping/actions";
 
+
+const documentWidth = document.documentElement.clientWidth;
+const windowWidth = window.innerWidth;
+const scrollBarWidth = windowWidth - documentWidth;
+
 class AppHeader extends PureComponent{
    constructor(props){
         super(props);
@@ -17,7 +22,8 @@ class AppHeader extends PureComponent{
    }
 
    componentDidMount(){
-        this.props.onFetchLabels()
+        this.props.onFetchLabels();
+       
    }
 
    onToggle = () => {

@@ -1,13 +1,14 @@
 main{
     padding-left: 70px;
-    max-width: 1000px;
+    width: 1240px;
+    
 }
 
 .grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     position: relative;
-    max-width: 1000px;
+   
 
 }
 .single-item{

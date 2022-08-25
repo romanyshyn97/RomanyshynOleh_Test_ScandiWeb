@@ -4,15 +4,23 @@
     height: 444px;
     padding: 15px;
     transition: all 0.3s;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    a{
+        text-decoration: none;
+        color: black;
+    }
     &_image{
         width: 354px;
-        height: 330px;
+        height: 338px;
+        
+        padding-left: 20px;
         overflow: hidden;
+        
     }
         img{
-            max-width: 354px;
-            max-height: 330px;
-            object-fit: cover;
+            object-fit: contain;
+            width: 354px;
+            height: 338px;
             
         }
     &:hover{

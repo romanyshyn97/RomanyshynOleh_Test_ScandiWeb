@@ -13,12 +13,13 @@ class SingleItem extends PureComponent{
         return(
             <div className="single-item" key={id}>
                 {inStock && 
-                <div >
-                <Link to={`/${category}/${id}`}
-                    onClick={() => this.props.loadCurrentItem(this.props.productData)}
-                    className="single-item_image">
-                    <img src={gallery[0]} alt={name} />
-                </Link>
+                <><Link to={`/${category}/${id}`}>
+                <div onClick={() => this.props.loadCurrentItem(this.props.productData)}>
+                <div 
+                    className="single-item_image"
+                    >
+                    <img src={gallery[0]} alt="" />
+                </div>
                 <div className="single-item_name">
                     <h5>
                         {brand}<br/>
@@ -27,15 +28,15 @@ class SingleItem extends PureComponent{
                     <div>
                         {this.props.selectedCurr}
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
-                    </div>  
-                    <div
-                        onClick={() => {this.props.loadCurrentItem(this.props.productData);this.props.addToCart(id) }} 
-                        className='single-item_cartIcon'>
-                        <img src={cartIcon} alt="cart" />
-                    </div>
-                                                                                                               
+                    </div>                                                                                      
                 </div>
             </div>
+            </Link>
+            <div
+                onClick={() => {this.props.loadCurrentItem(this.props.productData);this.props.addToCart(id) }} 
+                className='single-item_cartIcon'>
+                <img src={cartIcon} alt="cart" />
+            </div></>
         }
         {!inStock && 
                 <div className="inStock" >
@@ -53,6 +54,7 @@ class SingleItem extends PureComponent{
                     <div>
                         {this.props.selectedCurr}
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
+                        
                     </div>                                                                                       
                 </div>
             </div>

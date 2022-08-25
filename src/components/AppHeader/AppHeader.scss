@@ -1,7 +1,9 @@
+
 .app {
     header{
         margin-left: 50px;
         margin-right: 50px;
+        
     }
     &__header {
         display: flex;
@@ -10,12 +12,15 @@
         font-size: 20px;
         color: black;
         height: 80px;
+        
         &__logo{
             height: 42px;
-            justify-content: center;
+            
+            margin-right: 200px;
             
         }
         &__right{
+            margin-right: 100px;
             .cart_icon{
                 position: relative;
                 height: 22px;

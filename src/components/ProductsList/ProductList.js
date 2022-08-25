@@ -22,19 +22,19 @@ class ProductList extends PureComponent{
         } 
         return(
             
-            <div>
+            <>
                 <h1>{items.category.name.toUpperCase()}</h1>
                 <div className="grid">               
                 {products.map(item => (
-                    <div>
+                    
                         <SingleItem 
                             key={item.id} 
                             productData={item} 
                             filter={this.props.filter}/>
-                    </div>   
+                      
                     ))} 
                 </div>   
-            </div>
+            </>
         )
     }
 }

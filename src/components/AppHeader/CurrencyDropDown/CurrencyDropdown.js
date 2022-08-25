@@ -22,9 +22,9 @@ const DropDownContainer = styled("div")`
 const DropDownHeader = styled("div")`
   display: flex;
   align-items:center;
-  margin-bottom: 0.8em;
+  
   cursor:pointer;
-  width: 100px;
+  width: 70px;
   font-weight: 550;
   font-size: 1.3rem;
   color: black;
