@@ -25,6 +25,7 @@ export const GET_CATEGORY = ` query category($category: String!) {
         }
       }
     }
+    
     }`;
 
 export const GET_CURRENCIES = `

@@ -57,6 +57,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.FETCH_CATEGORIES_NAMES:
             return{
                 ...state,
+                loading: false,
                 categoriesNames: action.payload.names
             }
         

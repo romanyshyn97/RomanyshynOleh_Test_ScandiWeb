@@ -3,6 +3,7 @@ import SingleItem from "./SingleItem/SingleItem";
 import './ProductList.scss'
 import {connect} from 'react-redux';
 import AppHeader from "../AppHeader/AppHeader";
+import Spinner from "../../resources/spinner/spinner";
 import { fetchProducts, addToCart } from "../../redux/Shopping/actions";
 
 class ProductList extends PureComponent{
@@ -17,8 +18,8 @@ class ProductList extends PureComponent{
     render(){
         const {items, loading, error} = this.props;
         const {products} = items.category ? items.category : [];
-        if(!products){
-            return <></>
+        if(loading){
+            return <Spinner/>
         } 
         return(
             

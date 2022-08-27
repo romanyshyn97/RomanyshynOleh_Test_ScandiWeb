@@ -31,6 +31,9 @@ class AppHeader extends PureComponent{
             isOpen:!this.state.isOpen
         })
     }
+    onDefaultFilter = (filter) => {
+       return filter === ''
+    }
     
     render(){
         const clazz = this.state.isOpen ? 'opened': 'closed';
@@ -57,7 +60,7 @@ class AppHeader extends PureComponent{
                         
                     </ul>
                 </nav>
-                <Link to="/">
+                <Link to="/" onClick={this.onDefaultFilter(this.props.filter)}>
                     <img className="app__header__logo" src={logo} alt="" />
                 </Link>
                 
@@ -87,7 +90,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onFetchLabels: () => dispatch(fetchCategoriesNames())
+        onFetchLabels: () => dispatch(fetchCategoriesNames()),
+        onFetchLabels: () => dispatch(fetchCategoriesNames()),
         
     }
   }
