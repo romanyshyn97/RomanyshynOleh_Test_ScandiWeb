@@ -6,7 +6,12 @@ import plus from '../../../resources/plus.svg';
 import minus from '../../../resources/minus.svg';
 
 class BagItems extends PureComponent{
-
+    getCartButtonClass(attribute, selectedAttribute){
+        if(selectedAttribute === null){
+            return 
+        }
+        return selectedAttribute === attribute.value ? 'btn-cart-active' : 'btn-cart';
+    }
     render(){
         const {id,name, prices, qty, gallery, attributes, atr}  = this.props.itemData;
         const attr = attributes[0];
@@ -24,19 +29,17 @@ class BagItems extends PureComponent{
                                 <p>{attr.name}</p>
                                 <div className="cart-item__left_attr">
                                     
-                                {attr.name === 'Size' && attr.items.map(item => {
-                                        const active = atr === item.value;
-                                        const clazz = active ? 'btn-cart-active' : 'btn-cart';
-                                        return(
-                                            <div className={`btn-cart ${clazz}`} key={item.id} >{item.value}</div>
+                                {attr.name === 'Size' && attr.items.map(item => (
+                                            <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} >{item.value}</div>
                                         )
-                                        })}
+                                        )}
                                 {attr.name === 'Color' && attr.items.map(item => (
                                         <div className="btn-cart" key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
                                 ))}
                                 {attr.name === 'Capacity' && attr.items.map(item => (
-                                        <div className="btn-cart" key={item.id} style={{width: "50px"}}>{item.value}</div>
-                                ))}
+                                            <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} style={{width: "50px"}}>{item.value}</div>
+                                        )
+                                )}
                                     
                                 </div>
                             </> : <></>}

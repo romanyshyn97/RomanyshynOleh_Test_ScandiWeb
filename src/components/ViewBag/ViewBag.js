@@ -3,6 +3,7 @@ import BagItems from "./BagItem/BagItem";
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import './ViewBag.scss';
+import {makeOrder} from '../../redux/Shopping/actions'
 
 class ViewBag extends PureComponent{
 
@@ -27,6 +28,7 @@ class ViewBag extends PureComponent{
                         <h4>Total:</h4>
                         <h3> {selectedCurr}{' '}{totalPRICE.toFixed(2)}</h3>
                     </div>
+                    <button className="single-product__info_add" onClick={() => this.props.onMakeOrder()}>ORDER</button>
                 </div>
                 }
             </div>
@@ -43,4 +45,10 @@ const mapStateToProps = state =>{
     }
 }
 
-export default connect(mapStateToProps)(ViewBag) ;
+const mapDispatchToProps = dispatch => {
+    return{
+        onMakeOrder: () => dispatch(makeOrder()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewBag) ;
