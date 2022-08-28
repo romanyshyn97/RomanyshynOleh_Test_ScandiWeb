@@ -70,7 +70,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             };
         case actionTypes.CHANGE_CURRENCY:
             return{
-                ...state,
+                ...state,               
                 selectedCurr: action.payload
             }
         case actionTypes.ADD_TO_CART:
