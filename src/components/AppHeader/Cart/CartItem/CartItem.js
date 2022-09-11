@@ -15,7 +15,7 @@ class CartItem extends PureComponent{
 
     render(){
         const {id,name,brand, prices, qty, gallery, atr, attributes}  = this.props.itemData;
-        const attr = attributes[0];
+        // const attr = attributes[0];
         const {curr, onIncrease, onDecrease} = this.props;
         return( 
                 <div className="cart">
@@ -26,34 +26,34 @@ class CartItem extends PureComponent{
                                 {curr}
                                 {prices.filter(item => item.currency.symbol === curr).map(filtered => (filtered.amount))}
                             </h3>
-                            {attr ? <div>
-                                <p>{attr.name}</p>
-                            <div className="sizes">
-                               {attr.name === 'Size' && attr.items.map(item => {
-                                    // const active = atr === item.value;
-                                    // const clazz = active ? 'btn-cart-active' : 'btn-cart';
-                                    return(
-                                        <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} >{item.value}</div>
-                                    )   
-                               })}
-                               {attr.name === 'Color' && attr.items.map(item => {
-                                    // const active = atr === item.value;
-                                    // const clazz = active ? 'btn-cart-border' : 'btn-cart';
-                                        return(
-                                            <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
-                                        )
-                                })}
-                               {attr.name === 'Capacity' && attr.items.map(item => {
-                                    // const active = atr === item.value;
-                                    // const clazz = active ? 'btn-cart-active' : 'btn-cart';
-                                    return(
-                                        <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} style={{width: "50px"}}>{item.value}</div>
-                                    )
-                               })}
-                                   
-                            </div> 
-                            </div> : <></>
-                            }
+                            {attributes.map(attrExist => {
+                             return (
+                                <>
+                                {attrExist.name}
+                                <div className="flex-attr">
+                                    {attrExist.items.map((item, i) => {
+                                        
+                                        const activeColor = atr === item.displayValue;
+                                        const colorSelected = activeColor ? '2px solid #5ECE7B': '2px solid transparent';
+                                        
+                                        if(attrExist.type === 'text'){
+                                            return( <div
+                                                onClick={() => this.onSelectedAttr(item.value)} 
+                                                className={`btn-cart ${this.getCartButtonClass(item,atr)}`} key={item.value} 
+                                            >
+                                                {item.value}
+                                            </div>)
+                                        }
+                                        else if(attrExist.type === 'swatch'){
+                                            return (<div 
+                                                onClick={() => this.onSelectedAttr(item.displayValue)}
+                                                className="btn-cart color" key={i} style={{backgroundColor: `${item.value}`, outline:`${colorSelected}`, border:'none'}}></div>)
+                                        }
+                                    })}
+                                </div>
+                                </>
+                                )
+                        })}
                         </div>
                         <div className="cart__counter">
                             <img src={plus} alt="plus" onClick={() => onIncrease(id,qty,atr)}/>

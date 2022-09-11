@@ -2,7 +2,6 @@ import { PureComponent } from "react";
 import SingleItem from "./SingleItem/SingleItem";
 import './ProductList.scss'
 import {connect} from 'react-redux';
-import AppHeader from "../AppHeader/AppHeader";
 import Spinner from "../../resources/spinner/spinner";
 import { fetchProducts, addToCart } from "../../redux/Shopping/actions";
 
@@ -31,6 +30,7 @@ class ProductList extends PureComponent{
                         <SingleItem 
                             key={item.id} 
                             productData={item} 
+                           
                             filter={this.props.filter}/>
                       
                     ))} 

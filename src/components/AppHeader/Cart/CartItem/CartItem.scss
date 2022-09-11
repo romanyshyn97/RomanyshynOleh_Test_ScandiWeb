@@ -3,14 +3,14 @@
 .cart{
     
     font-size: 16px;
-    height: 190px;
-    width: 325px;
+    min-height: 190px;
+    min-width: 325px;
     margin-bottom: 20px;
     background-color: white;
     .grid{
         display: grid;
         grid-template-columns: 5fr 1fr 4fr;
-        height: 190px;
+        min-height: 190px;
         font-size: 16px;
         }
     &__info{
@@ -20,6 +20,8 @@
         }
         h3{
             font-weight: 500;
+            margin: 0;
+            margin-bottom: 10px;
         }
         p{
             font-weight: 400;
@@ -28,6 +30,11 @@
         .sizes{
             display: flex;
             
+        }
+        .flex-attr{
+            display: flex;
+            margin-top: 5px;
+            margin-bottom: 10px;
         }
     }    
     &__counter{

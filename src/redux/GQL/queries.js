@@ -1,4 +1,5 @@
-export const GET_CATEGORY = ` query category($category: String!) {
+export const GET_CATEGORY = ` 
+  query category($category: String!) {
     category(input:{title:$category}){
          name,
          
@@ -28,21 +29,46 @@ export const GET_CATEGORY = ` query category($category: String!) {
     
     }`;
 
-export const GET_CURRENCIES = `
-query currencies {
+export const GET_CURRENCIES_CATEGORIES = `
+  query currencies {
     currencies{
       label,
       symbol
     }
-  }`;
 
-export const GET_CATEGORIES_NAMES = `
-query categories {
+  query categories {
     categories{
     name,
     products{
       id
     }
   }
-}`
+  }`;
+
+export const GET_CURRENT_PRODUCT = `query product($id: String!) {
+  product(id:$id){
+    id,
+    name,
+    brand,
+    inStock,
+    gallery,
+    description,
+    category,
+    prices{
+      currency{
+        label,
+        symbol
+      }
+      amount
+    }
+    attributes{
+      id,name, type, items{
+        displayValue,
+        value
+      }
+    }
+    
+  }
+}`  
+
 

@@ -5,13 +5,13 @@ import cart from '../../resources/cart.svg';
 import logo from '../../resources/logo.svg';
 import './AppHeader.scss'
 import {connect} from 'react-redux';
-import {Link, NavLink} from "react-router-dom";
-import { fetchCategoriesNames } from "../../redux/Shopping/actions";
+import {Link} from "react-router-dom";
+import { fetchCurrenciesAndCategories } from "../../redux/Shopping/actions";
 
 
-const documentWidth = document.documentElement.clientWidth;
-const windowWidth = window.innerWidth;
-const scrollBarWidth = windowWidth - documentWidth;
+// const documentWidth = document.documentElement.clientWidth;
+// const windowWidth = window.innerWidth;
+// const scrollBarWidth = windowWidth - documentWidth;
 
 class AppHeader extends PureComponent{
    constructor(props){
@@ -88,7 +88,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        onFetchLabels: () => dispatch(fetchCategoriesNames()),
+        onFetchLabels: () => dispatch(fetchCurrenciesAndCategories()),
         
     }
   }

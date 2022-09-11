@@ -1,5 +1,5 @@
 import * as actionTypes from './types';
-import { GET_CATEGORY, GET_CURRENCIES, GET_CATEGORIES_NAMES } from '../GQL/queries';
+import { GET_CATEGORY, GET_CURRENCIES_CATEGORIES, GET_CURRENT_PRODUCT } from '../GQL/queries';
 
 export const addToCart = (itemID, attr) => {
     return{
@@ -54,10 +54,10 @@ export const decreaseQTY = (itemID, value, atrname) => {
   }
 }
 
-export const loadCurrentItem = (item) => {
+export const loadCurrentItem = (itemID) => {
     return{
         type: actionTypes.LOAD_CURRENT_ITEM,
-        payload: item
+        payload: {id:itemID}
     }
 }
 
@@ -84,21 +84,30 @@ export const selectAttr = (attr) => {
 export const fetchProductsBegin = () => ({
     type: actionTypes.FETCH_PRODUCTS_BEGIN
   });
+
+  export const fetchCurrentProductBegin = () => ({
+    type: actionTypes.FETCH_CURRENT_PRODUCT_BEGIN
+  })
   
   export const fetchProductsSuccess = products => ({
     type: actionTypes.FETCH_PRODUCTS_SUCCESS,
     payload: { products }
   });
 
-  export const fetchCurrenciesSuccess = currencies => ({
-    type: actionTypes.FETCH_CURRENCIES,
-    payload: { currencies }
+  export const fetchCurrentProductSuccess = product => ({
+    type:actionTypes.FETCH_CURRENT_PRODUCT,
+    payload: {product}
   })
 
-  export const fetchCategoriesNamesSuccess = names => ({
-    type: actionTypes.FETCH_CATEGORIES_NAMES,
-    payload: { names }
+  export const fetchCurrenciesAndCategoryiesNamesSuccess = (currencies,categories) => ({
+    type: actionTypes.FETCH_CURRENCIES_CATEGORIES,
+    payload: { currencies, categories }
   })
+
+  // export const fetchCategoriesNamesSuccess = names => ({
+  //   type: actionTypes.FETCH_CATEGORIES_NAMES,
+  //   payload: { names }
+  // })
   
   export const fetchProductsFailure = error => ({
     type: actionTypes.FETCH_PRODUCTS_FAILURE,
@@ -130,30 +139,33 @@ export const fetchProductsBegin = () => ({
         .catch(error => dispatch(fetchProductsFailure(error)));
     };
   }
-
-  export function fetchCurrencies() {
+  export function fetchCurrentProduct(name) {
     return dispatch => {
-      dispatch(fetchProductsBegin());
+      dispatch(fetchCurrentProductBegin());
       return fetch('http://localhost:4000/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: GET_CURRENCIES,
+          query: GET_CURRENT_PRODUCT,
+            variables: {
+              id: name
+            },
         }),
-        variables: {}
+      
       })
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-          dispatch(fetchCurrenciesSuccess(json.data));
+          dispatch(fetchCurrentProductSuccess(json.data.product));
           return json.data;
         })
         .catch(error => dispatch(fetchProductsFailure(error)));
     };
   }
-  export function fetchCategoriesNames() {
+
+  export function fetchCurrenciesAndCategories() {
     return dispatch => {
       dispatch(fetchProductsBegin());
       return fetch('http://localhost:4000/', {
@@ -162,23 +174,47 @@ export const fetchProductsBegin = () => ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: GET_CATEGORIES_NAMES,
+          query: GET_CURRENCIES_CATEGORIES,
         }),
         variables: {}
       })
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-          dispatch(fetchCategoriesNamesSuccess(json.data.categories));
-          return json.data.categories;
+          dispatch(fetchCurrenciesAndCategoryiesNamesSuccess(json.data));
+          return json.data;
         })
         .catch(error => dispatch(fetchProductsFailure(error)));
     };
   }
+  // export function fetchCategoriesNames() {
+  //   return dispatch => {
+  //     dispatch(fetchProductsBegin());
+  //     return fetch('http://localhost:4000/', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         query: GET_CURRENCIES_CATEGORIES,
+  //       }),
+  //       variables: {}
+  //     })
+  //       .then(handleErrors)
+  //       .then(res => res.json())
+  //       .then(json => {
+  //         dispatch(fetchCategoriesNamesSuccess(json.data.categories));
+  //         return json.data.categories;
+  //       })
+  //       .catch(error => dispatch(fetchProductsFailure(error)));
+  //   };
+  // }
   
   function handleErrors(response) {
     if (!response.ok) {
       throw Error(response.statusText);
     }
     return response;
+
+
   }

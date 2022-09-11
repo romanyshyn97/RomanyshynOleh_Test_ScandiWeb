@@ -50,10 +50,11 @@
     
 }
 .btn-cart{
-        
+        display: inline-block;
         border: 1px solid black;
-        width: 24px;
-        height: 24px;
+        min-width: 22px;
+        height: 22px;
+        padding: 2px;
         background-color: white;
         display: flex;
         margin-right: 10px;
@@ -70,6 +71,10 @@
            
         // }
     
+}
+.color{
+    outline-offset: 2px;
+    width: 24px;
 }
 .btn-cart-active{
     background-color: black;

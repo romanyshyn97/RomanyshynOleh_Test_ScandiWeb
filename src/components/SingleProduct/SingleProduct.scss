@@ -2,6 +2,17 @@
     margin-top: 50px;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    .img-list{
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        height: 400px;
+        margin-right: 100px;
+        &::-webkit-scrollbar {
+            display: none;
+          }
+
+    }
     &__image{
         display: flex;
         width: 700px;
@@ -48,6 +59,7 @@
 
         &_attr{
             display: flex;
+            flex-direction: column;
             font-size: 18px;
             padding-bottom: 20px;
             .btn-cart{
@@ -57,10 +69,20 @@
                 
 
             }
+            .flex-attr{
+                display: flex;
+                margin-bottom: 10px;
+                margin-top: 10px;
+            }
+            
             .attr-active{
                 background-color: black;
                 color: white;
             }
+            .color{
+                outline-offset: 2px;
+            }
+            
         }
         &_price{
             font-size: 24px;

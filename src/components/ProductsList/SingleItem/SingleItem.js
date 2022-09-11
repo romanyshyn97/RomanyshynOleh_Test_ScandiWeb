@@ -4,17 +4,17 @@ import './SingleItem.scss';
 import cartIcon from '../../../resources/cart-white.svg'
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux'
-import { loadCurrentItem , addToCart} from "../../../redux/Shopping/actions";
+import { fetchCurrentProduct , addToCart} from "../../../redux/Shopping/actions";
 
 class SingleItem extends PureComponent{
     render(){
         const {id,name, inStock,gallery, prices, brand, category} = this.props.productData;
-        const {cart} = this.props;
+        
         return(
             <div className="single-item" key={id}>
                 {inStock && 
                 <><Link to={`/${category}/${id}`}>
-                <div onClick={() => this.props.loadCurrentItem(this.props.productData)}>
+                <div onClick={() => this.props.loadCurrentItem(id)}>
                 <div 
                     className="single-item_image"
                     >
@@ -33,7 +33,7 @@ class SingleItem extends PureComponent{
             </div>
             </Link>
             <div
-                onClick={() => {this.props.loadCurrentItem(this.props.productData);this.props.addToCart(id) }} 
+                onClick={() => this.props.addToCart(id) } 
                 className='single-item_cartIcon'>
                 <img src={cartIcon} alt="cart" />
             </div></>
@@ -42,7 +42,7 @@ class SingleItem extends PureComponent{
                 <div className="inStock" >
                     <h1>OUT OF STOCK</h1>
                 <Link to={`/${category}/${id}`}
-                    onClick={() => this.props.loadCurrentItem(this.props.productData)}
+                    onClick={() => this.props.loadCurrentItem(id)}
                     className="single-item_image">
                     <img src={gallery[0]} alt={name} />
                 </Link>
@@ -74,7 +74,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
+        loadCurrentItem: (id) => dispatch(fetchCurrentProduct(id)),
         addToCart: (id) => dispatch(addToCart(id))
     }
 }

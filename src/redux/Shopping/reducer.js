@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     loading: false,
     error: null,
     cart: cartStorage ? cartStorage.shop.cart : [],
-    currentItem: null,
+    currentItem: {},
     selectedCurr: '$',
     totalQTY: cartStorage ? cartStorage.shop.totalQTY : 0,
     totalPRICE: cartStorage ? cartStorage.shop.totalPRICE : 0
@@ -37,8 +37,19 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
+
+                
             };
+            case actionTypes.FETCH_CURRENT_PRODUCT_BEGIN:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+
+                
+            };
+        
 
         case actionTypes.FETCH_PRODUCTS_SUCCESS:
             return {
@@ -46,20 +57,27 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 loading: false,
                 items: action.payload.products
             };
-        
-        case actionTypes.FETCH_CURRENCIES:
+        case actionTypes.FETCH_CURRENT_PRODUCT:
+            return{
+                ...state,
+                loading:false,
+                currentItem: action.payload.product
+            }
+
+        case actionTypes.FETCH_CURRENCIES_CATEGORIES:
             return {
                 ...state,
                 loading: false,
-                currencies: action.payload.currencies
+                currencies: action.payload.currencies,
+                categoriesNames: action.payload.categories
             };
         
-        case actionTypes.FETCH_CATEGORIES_NAMES:
-            return{
-                ...state,
-                loading: false,
-                categoriesNames: action.payload.names
-            }
+        // case actionTypes.FETCH_CATEGORIES_NAMES:
+        //     return{
+        //         ...state,
+        //         loading: false,
+        //         categoriesNames: action.payload.names
+        //     }
         
         case actionTypes.FETCH_PRODUCTS_FAILURE:
             return {
@@ -129,7 +147,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.LOAD_CURRENT_ITEM:
             return {
                 ...state,
-                currentItem: action.payload
+                id: action.payload.id
             } 
         case actionTypes.MAKE_ORDER:
             return{
@@ -138,6 +156,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 totalQTY: 0
                 
             }
+        
         default:
             return state;   
     }

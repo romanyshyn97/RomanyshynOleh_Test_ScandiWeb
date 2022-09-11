@@ -1,9 +1,7 @@
 import { PureComponent } from "react";
-import product from '../../../resources/product.png'
 import './Cart.scss'
 import CartItem from "./CartItem/CartItem";
 import {connect} from 'react-redux';
-import { Scrollbars } from 'react-custom-scrollbars';
 import {Link} from 'react-router-dom';
 import OutsideAlerter from "../CurrencyDropDown/OutsideClick";
 
