@@ -6,17 +6,29 @@ import plus from '../../../../resources/plus.svg';
 import minus from '../../../../resources/minus.svg';
 class CartItem extends PureComponent{
 
-    getCartButtonClass(attribute, selectedAttribute){
-        if(selectedAttribute === null){
+    getCartButtonClass(attr, attrValue){
+        const { atr } = this.props.itemData
+        if(!atr[attr.id]){
             return 
         }
-        return selectedAttribute === attribute.value ? 'btn-cart-active' : 'btn-cart';
+    
+        return atr[attr.id] === attrValue.value ? 'btn-cart-active' : 'attr-non';
+    }
+
+    isSelected(attr, attrValue){
+        const { atr } = this.props.itemData
+        if(!atr[attr.id]){
+            return false
+        }
+    
+        return atr[attr.id] === attrValue.value;
     }
 
     render(){
         const {id,name,brand, prices, qty, gallery, atr, attributes}  = this.props.itemData;
         // const attr = attributes[0];
         const {curr, onIncrease, onDecrease} = this.props;
+        console.log(atr)
         return( 
                 <div className="cart">
                     <div className="grid">
@@ -33,21 +45,20 @@ class CartItem extends PureComponent{
                                 <div className="flex-attr">
                                     {attrExist.items.map((item, i) => {
                                         
-                                        const activeColor = atr === item.displayValue;
-                                        const colorSelected = activeColor ? '2px solid #5ECE7B': '2px solid transparent';
+                                        
                                         
                                         if(attrExist.type === 'text'){
                                             return( <div
-                                                onClick={() => this.onSelectedAttr(item.value)} 
-                                                className={`btn-cart ${this.getCartButtonClass(item,atr)}`} key={item.value} 
+                                                
+                                                className={`btn-cart ${this.getCartButtonClass(attrExist,item)}`} key={item.value} 
                                             >
                                                 {item.value}
                                             </div>)
                                         }
                                         else if(attrExist.type === 'swatch'){
                                             return (<div 
-                                                onClick={() => this.onSelectedAttr(item.displayValue)}
-                                                className="btn-cart color" key={i} style={{backgroundColor: `${item.value}`, outline:`${colorSelected}`, border:'none'}}></div>)
+                                                
+                                                className="btn-cart color" key={i} style={{backgroundColor: `${item.value}`, outline:this.isSelected(attrExist, item) ? '2px solid #5ECE7B' : 'none', border: 'none'}}></div>)
                                         }
                                     })}
                                 </div>

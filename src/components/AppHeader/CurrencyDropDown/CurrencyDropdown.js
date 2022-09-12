@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import { v4 as uuidv4 } from 'uuid';
-import styled from 'styled-components';
 import up from '../../../resources/arrowUp.svg';
 import down from '../../../resources/arrowDown.svg';
 import './CurrencyDropdown.scss'

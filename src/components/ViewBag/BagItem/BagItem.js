@@ -6,11 +6,22 @@ import plus from '../../../resources/plus.svg';
 import minus from '../../../resources/minus.svg';
 
 class BagItems extends PureComponent{
-    getCartButtonClass(attribute, selectedAttribute){
-        if(selectedAttribute === null){
+    getCartButtonClass(attr, attrValue){
+        const { atr } = this.props.itemData
+        if(!atr[attr.id]){
             return 
         }
-        return selectedAttribute === attribute.value ? 'btn-cart-active' : 'btn-cart';
+    
+        return atr[attr.id] === attrValue.value ? 'btn-cart-active' : 'attr-non';
+    }
+
+    isSelected(attr, attrValue){
+        const { atr } = this.props.itemData
+        if(!atr[attr.id]){
+            return false
+        }
+    
+        return atr[attr.id] === attrValue.value;
     }
     render(){
         const {id,name, prices, qty, gallery, attributes, atr}  = this.props.itemData;
@@ -25,24 +36,33 @@ class BagItems extends PureComponent{
                                 {this.props.curr}
                                 {prices.filter(item => item.currency.symbol === this.props.curr).map(filtered => (filtered.amount))}
                             </h3>
-                            {attr ? <>
-                                <p>{attr.name}</p>
+                            {attributes.map(attrExist => {
+                             return (
+                                <>
+                                {attrExist.name}
                                 <div className="cart-item__left_attr">
-                                    
-                                {attr.name === 'Size' && attr.items.map(item => (
-                                            <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} >{item.value}</div>
-                                        )
-                                        )}
-                                {attr.name === 'Color' && attr.items.map(item => (
-                                        <div className="btn-cart" key={item.id} style={{backgroundColor: `${item.displayValue}`, border:"none"}}></div>
-                                ))}
-                                {attr.name === 'Capacity' && attr.items.map(item => (
-                                            <div className={`btn-cart ${this.getCartButtonClass(item, atr)}`} key={item.id} style={{width: "50px"}}>{item.value}</div>
-                                        )
-                                )}
-                                    
+                                    {attrExist.items.map((item, i) => {
+                                        
+                                        
+                                        
+                                        if(attrExist.type === 'text'){
+                                            return( <div
+                                                
+                                                className={`btn-cart ${this.getCartButtonClass(attrExist,item)}`} key={item.value} 
+                                            >
+                                                {item.value}
+                                            </div>)
+                                        }
+                                        else if(attrExist.type === 'swatch'){
+                                            return (<div 
+                                                
+                                                className="btn-cart color" key={i} style={{backgroundColor: `${item.value}`, outline:this.isSelected(attrExist, item) ? '2px solid #5ECE7B' : 'none', border: 'none'}}></div>)
+                                        }
+                                    })}
                                 </div>
-                            </> : <></>}
+                                </>
+                                )
+                        })}
                         </div>
                         <div className="cart-item__right">
                             <div className="cart-item__right_counter">

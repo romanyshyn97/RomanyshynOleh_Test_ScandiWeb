@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { ThemeProvider } from "styled-components";
 
 
-/**
- * Component that alerts if you click outside of it
- */
+
+
 export default class OutsideAlerter extends Component {
   constructor(props) {
     super(props);
@@ -21,9 +19,7 @@ export default class OutsideAlerter extends Component {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  /**
-   * Alert if clicked on outside of element
-   */
+ 
   handleClickOutside(event) {
     if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) && this.props.isOpen === true) {
       this.props.close()

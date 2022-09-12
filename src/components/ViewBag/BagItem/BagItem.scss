@@ -1,5 +1,5 @@
 .cart-item{
-    height: 300px;
+    min-height: 300px;
     padding-top: 20px;
     padding-bottom: 20px;
     border-top: 1px solid rgb(210, 210, 210);
@@ -11,8 +11,10 @@
     &__left{
         font-size: 30px;
         &_attr{
+            margin-top: 10px;
+            margin-bottom: 10px;
             display: flex;
-            justify-content: space-between;
+            
             width: 275px;
         }
     }

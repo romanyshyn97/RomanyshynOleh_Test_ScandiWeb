@@ -72,13 +72,6 @@ const shopReducer = (state = INITIAL_STATE, action) => {
                 categoriesNames: action.payload.categories
             };
         
-        // case actionTypes.FETCH_CATEGORIES_NAMES:
-        //     return{
-        //         ...state,
-        //         loading: false,
-        //         categoriesNames: action.payload.names
-        //     }
-        
         case actionTypes.FETCH_PRODUCTS_FAILURE:
             return {
                 ...state,
@@ -93,7 +86,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             }
         case actionTypes.ADD_TO_CART:
             const itemExist = state.items.category.products.find(prod => prod.id === action.payload.id);
-            const defaultAttr = state.currentItem.attributes.length !== 0 ? state.currentItem.attributes[0].items[0].value : false;
+            const defaultAttr = state.currentItem.attributes.length !== 0 ? state.currentItem.attributes.map(item => item.items[0].value) : false;
             const attrExist = action.payload.attr ? action.payload.attr : defaultAttr;
             const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === attrExist) ? true: false);
             
