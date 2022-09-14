@@ -86,10 +86,10 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             }
         case actionTypes.ADD_TO_CART:
             const itemExist = state.items.category.products.find(prod => prod.id === action.payload.id);
-            const defaultAttr = state.currentItem.attributes.length !== 0 ? state.currentItem.attributes.map(item => item.items[0].value) : false;
+            const defaultAttr = itemExist.attributes.length !== 0 ? itemExist.attributes.map(item => item.items[0].value) : false;
             const attrExist = action.payload.attr ? action.payload.attr : defaultAttr;
-            const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === attrExist) ? true: false);
-            
+            const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === attrExist ) ? true: false);
+            console.log(action.payload.attr)
             const newCart = inCartSame 
                 ? state.cart.map(item => 
                 (item.id === action.payload.id && item.atr === attrExist)

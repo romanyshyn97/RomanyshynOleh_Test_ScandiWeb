@@ -8,7 +8,17 @@ import { fetchCurrentProduct , addToCart} from "../../../redux/Shopping/actions"
 
 class SingleItem extends PureComponent{
     render(){
-        const {id,name, inStock,gallery, prices, brand, category} = this.props.productData;
+        const {id,name, inStock,gallery, prices, brand, category, attributes} = this.props.productData;
+        // const array = attributes.map(({id,items})  => ({ id: id, value: items[0].value}));
+        // const object = attributes.map(({id,items})  => { object[id] = items[0].value; return id;);
+        //     return object; };
+        const defaultAttributes = () => {
+            const object = {}
+            attributes.map(({id,items})  => { object[id] = items[0].value; return id;});
+            return object;
+        }
+                         
+       
         
         return(
             <div className="single-item" key={id}>
@@ -33,7 +43,7 @@ class SingleItem extends PureComponent{
             </div>
             </Link>
             <div
-                onClick={() => this.props.addToCart(id) } 
+                onClick={() => this.props.addToCart(id,defaultAttributes()) } 
                 className='single-item_cartIcon'>
                 <img src={cartIcon} alt="cart" />
             </div></>
@@ -75,7 +85,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadCurrentItem: (id) => dispatch(fetchCurrentProduct(id)),
-        addToCart: (id) => dispatch(addToCart(id))
+        addToCart: (id,attr) => dispatch(addToCart(id,attr)),
+        
     }
 }
 

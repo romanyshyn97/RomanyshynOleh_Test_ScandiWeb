@@ -40,14 +40,14 @@ class AppHeader extends PureComponent{
             <header className="app__header">
                 <nav className="app__header__nav">
                     <ul>
-                        {categoriesNames.map(({name}) => {
+                        {categoriesNames.map(({name}, index) => {
                             const active = this.props.filter === name;
                             const clazz = active ? 'butt-active' : 'butt-non';
                             return(
                                 <Link to={`/${name}`}>
                                 <li 
                                     className={`${clazz}`}
-                                    key={name}
+                                    key={index}
                                     onClick={() => onFilterSelected(name)}
                                     >{name.toUpperCase()}
                                     

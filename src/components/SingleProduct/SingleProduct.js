@@ -116,6 +116,7 @@ class SingleProduct extends PureComponent{
         const {id,name,brand,inStock,description, gallery, prices, attributes} = current ;
         // const attr = attributes[0];
         const {attributeSelected} = this.state;
+        
         if(!current || loading){
             return <Spinner/>
         }
@@ -150,10 +151,12 @@ class SingleProduct extends PureComponent{
                              return (
                                 <>
                                 {attrExist.name}
+                                
                                 <div className="flex-attr">
-                                    {attrExist.items.map((item, i) => {
+                                
+                                    {attrExist.items.map(item => {
                                         
-        
+                                    
                                         if(attrExist.type === 'text'){
                                             return( <div
                                                 onClick={() => this.onSelectedAttr(attrExist, item)} 
@@ -166,10 +169,11 @@ class SingleProduct extends PureComponent{
                                         else if(attrExist.type === 'swatch'){
                                             return (<div 
                                                 onClick={() => this.onSelectedAttr(attrExist, item)}
-                                                className="btn-cart color  ${this.getCartButtonClass(attrExist, item)}"
-                                                 key={i}
+                                                className="btn-cart color "
+                                                 key={item.value}
                                                   style={{backgroundColor: `${item.value}`, outline:this.isSelected(attrExist, item) ? '3px solid #5ECE7B' : 'none', border: 'none'}}></div>)
                                         }
+                                        return <></>
                                     })}
                                 </div>
                                 </>
@@ -184,7 +188,7 @@ class SingleProduct extends PureComponent{
                         {prices.filter(item => item.currency.symbol === this.props.selectedCurr).map(filtered => (filtered.amount))}
                     </div>
                         
-                    {((inStock && attributeSelected !== null) || (inStock && attributes.length === 0) ) ?<button 
+                    {((inStock && attributeSelected !== {}) || (inStock && attributes.length === 0) ) ?<button 
                     onClick={() => this.props.addToCart(id,attributeSelected)}
                     className="single-product__info_add">ADD TO CART</button> : <button 
                     disabled

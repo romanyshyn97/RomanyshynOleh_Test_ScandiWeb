@@ -15,7 +15,7 @@ class ProductList extends PureComponent{
         }
     }
     render(){
-        const {items, loading, error} = this.props;
+        const {items, loading} = this.props;
         const {products} = items.category ? items.category : [];
         if(!products || loading){
             return <Spinner/>

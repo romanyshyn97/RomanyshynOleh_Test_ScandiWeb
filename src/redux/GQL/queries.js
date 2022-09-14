@@ -29,21 +29,19 @@ export const GET_CATEGORY = `
     
     }`;
 
-export const GET_CURRENCIES_CATEGORIES = `
-  query currencies {
-    currencies{
-      label,
-      symbol
-    }
-
-  query categories {
-    categories{
-    name,
-    products{
-      id
-    }
-  }
-  }`;
+    export const GET_CURRENCIES_CATEGORIES = ` 
+      query { 
+        currencies { 
+          label, 
+          symbol 
+        },  
+        categories { 
+            name, 
+            products { 
+                id 
+            } 
+        } 
+      }`;
 
 export const GET_CURRENT_PRODUCT = `query product($id: String!) {
   product(id:$id){
@@ -70,5 +68,4 @@ export const GET_CURRENT_PRODUCT = `query product($id: String!) {
     
   }
 }`  
-
 

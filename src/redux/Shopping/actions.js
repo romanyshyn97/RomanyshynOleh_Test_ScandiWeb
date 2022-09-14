@@ -91,7 +91,7 @@ export const fetchProductsBegin = () => ({
     payload: {product}
   })
 
-  export const fetchCurrenciesAndCategoryiesNamesSuccess = (currencies,categories) => ({
+  export const fetchCurrenciesAndCategoriesNamesSuccess = ({currencies,categories}) => ({
     type: actionTypes.FETCH_CURRENCIES_CATEGORIES,
     payload: { currencies, categories }
   })
@@ -173,7 +173,7 @@ export const fetchProductsBegin = () => ({
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-          dispatch(fetchCurrenciesAndCategoryiesNamesSuccess(json.data));
+          dispatch(fetchCurrenciesAndCategoriesNamesSuccess(json.data));
           return json.data;
         })
         .catch(error => dispatch(fetchProductsFailure(error)));

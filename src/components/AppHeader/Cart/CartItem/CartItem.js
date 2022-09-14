@@ -28,7 +28,7 @@ class CartItem extends PureComponent{
         const {id,name,brand, prices, qty, gallery, atr, attributes}  = this.props.itemData;
         // const attr = attributes[0];
         const {curr, onIncrease, onDecrease} = this.props;
-        console.log(atr)
+        
         return( 
                 <div className="cart">
                     <div className="grid">
@@ -60,6 +60,8 @@ class CartItem extends PureComponent{
                                                 
                                                 className="btn-cart color" key={i} style={{backgroundColor: `${item.value}`, outline:this.isSelected(attrExist, item) ? '2px solid #5ECE7B' : 'none', border: 'none'}}></div>)
                                         }
+                                        return <></>
+
                                     })}
                                 </div>
                                 </>

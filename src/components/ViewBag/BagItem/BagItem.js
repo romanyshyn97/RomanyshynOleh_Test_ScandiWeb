@@ -25,7 +25,6 @@ class BagItems extends PureComponent{
     }
     render(){
         const {id,name, prices, qty, gallery, attributes, atr}  = this.props.itemData;
-        const attr = attributes[0];
         const {onIncrease, onDecrease} = this.props;
         return(
             <div className="cart-item">
@@ -58,6 +57,7 @@ class BagItems extends PureComponent{
                                                 
                                                 className="btn-cart color" key={i} style={{backgroundColor: `${item.value}`, outline:this.isSelected(attrExist, item) ? '2px solid #5ECE7B' : 'none', border: 'none'}}></div>)
                                         }
+                                        return <></>
                                     })}
                                 </div>
                                 </>
