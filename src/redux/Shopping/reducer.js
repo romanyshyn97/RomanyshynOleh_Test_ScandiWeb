@@ -89,7 +89,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
             const defaultAttr = itemExist.attributes.length !== 0 ? itemExist.attributes.map(item => item.items[0].value) : false;
             const attrExist = action.payload.attr ? action.payload.attr : defaultAttr;
             const inCartSame = state.cart.find(itemExist => (itemExist.id === action.payload.id && itemExist.atr === attrExist ) ? true: false);
-            console.log(action.payload.attr)
+            
             const newCart = inCartSame 
                 ? state.cart.map(item => 
                 (item.id === action.payload.id && item.atr === attrExist)

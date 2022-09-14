@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-import BagItems from "./BagItem/BagItem";
+import BagItem from "./BagItem/BagItem";
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
 import './ViewBag.scss';
@@ -15,9 +15,9 @@ class ViewBag extends PureComponent{
                 {cart.length === 0 && <Link to="/" className="back">SHOPPING CART IS EMPTY . BACK TO MAIN PAGE</Link>}
                 {cart.length > 0 && 
                 <div>
-                    {cart.map(item => (
+                    {cart.map((item,i) => (
                     <div>
-                        <BagItems key={item.id} itemData={item} curr={selectedCurr} />
+                        <BagItem key={i} itemData={item} curr={selectedCurr} />
                     </div>                                                                            
                 ))}
                     <div className="summary">

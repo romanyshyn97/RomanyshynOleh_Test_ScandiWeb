@@ -5,7 +5,7 @@ import './BagItem.scss';
 import plus from '../../../resources/plus.svg';
 import minus from '../../../resources/minus.svg';
 
-class BagItems extends PureComponent{
+class BagItem extends PureComponent{
     getCartButtonClass(attr, attrValue){
         const { atr } = this.props.itemData
         if(!atr[attr.id]){
@@ -92,4 +92,4 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BagItems) ;
+export default connect(mapStateToProps, mapDispatchToProps)(BagItem) ;
